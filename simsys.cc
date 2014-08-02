@@ -164,6 +164,7 @@ void dr_rename( const char *existing_utf8, const char *new_utf8 )
 }
 
 
+#ifndef USE_SANDBOXING
 char const* dr_query_homedir()
 {
 	static char buffer[PATH_MAX+24];
@@ -211,6 +212,7 @@ char const* dr_query_homedir()
 
 	return buffer;
 }
+#endif
 
 
 const char *dr_query_fontpath( const char *fontname )

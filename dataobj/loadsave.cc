@@ -379,7 +379,7 @@ bool loadsave_t::rd_open(const char *filename_utf8 )
 
 bool loadsave_t::wr_open(const char *filename_utf8, mode_t m, const char *pak_extension, const char *savegame_version)
 {
-	mode = m;
+    mode = m;
 	close();
 
 	const char *filename = dr_utf8_to_system_filename( filename_utf8, true );
