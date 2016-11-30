@@ -815,14 +815,23 @@ int simu_main(int argc, char** argv)
 	// Get optimal resolution.
 	if (disp_width == 0 || disp_height == 0) {
 		resolution const res = dr_query_screen_resolution();
+#ifdef __APPLE__
+		#include <TargetConditionals.h>
+#if !TARGET_OS_IPHONE
 		if (fullscreen) {
+#endif
+#endif
 			disp_width  = res.w;
 			disp_height = res.h;
+#ifdef __APPLE__
+#if !TARGET_OS_IPHONE
 		}
 		else {
 			disp_width  = min(704, res.w);
 			disp_height = min(560, res.h);
 		}
+#endif
+#endif
 	}
 
 	dbg->important("Preparing display ...");
