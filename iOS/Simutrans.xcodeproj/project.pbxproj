@@ -31,6 +31,7 @@
 		29BAE4101DEF17AD00FDE44D /* pakHAJO in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE4021DEF17AD00FDE44D /* pakHAJO */; };
 		29BAE4111DEF17AD00FDE44D /* pakHD in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE4031DEF17AD00FDE44D /* pakHD */; };
 		29BAE4131DEF439700FDE44D /* pak in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE4121DEF439700FDE44D /* pak */; };
+		29BAE4151DEF50DE00FDE44D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE4141DEF50DE00FDE44D /* Launch Screen.storyboard */; };
 		5FAA4287198D09C300F2849F /* brueckenbauer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 5FAA4279198D09C200F2849F /* brueckenbauer.cc */; };
 		5FAA4288198D09C300F2849F /* fabrikbauer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 5FAA427B198D09C200F2849F /* fabrikbauer.cc */; };
 		5FAA4289198D09C300F2849F /* hausbauer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 5FAA427D198D09C200F2849F /* hausbauer.cc */; };
@@ -509,6 +510,7 @@
 		29BAE4021DEF17AD00FDE44D /* pakHAJO */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pakHAJO; path = ../pakHAJO; sourceTree = "<group>"; };
 		29BAE4031DEF17AD00FDE44D /* pakHD */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pakHD; path = ../pakHD; sourceTree = "<group>"; };
 		29BAE4121DEF439700FDE44D /* pak */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pak; path = ../pak; sourceTree = "<group>"; };
+		29BAE4141DEF50DE00FDE44D /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		5FAA4279198D09C200F2849F /* brueckenbauer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = brueckenbauer.cc; path = ../bauer/brueckenbauer.cc; sourceTree = "<group>"; };
 		5FAA427A198D09C200F2849F /* brueckenbauer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = brueckenbauer.h; path = ../bauer/brueckenbauer.h; sourceTree = "<group>"; };
 		5FAA427B198D09C200F2849F /* fabrikbauer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fabrikbauer.cc; path = ../bauer/fabrikbauer.cc; sourceTree = "<group>"; };
@@ -1331,6 +1333,7 @@
 			isa = PBXGroup;
 			children = (
 				5FAA4278198D095E00F2849F /* Simutrans-Source */,
+				29BAE4141DEF50DE00FDE44D /* Launch Screen.storyboard */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -2532,6 +2535,7 @@
 				5FAA4BF6198D192200F2849F /* change_request.txt in Resources */,
 				29BAE4081DEF17AD00FDE44D /* pak64.german in Resources */,
 				5FAA4C03198D192200F2849F /* themes in Resources */,
+				29BAE4151DEF50DE00FDE44D /* Launch Screen.storyboard in Resources */,
 				29BAE40D1DEF17AD00FDE44D /* PAK128.german in Resources */,
 				5FAA4BFF198D192200F2849F /* readme.txt in Resources */,
 				29BAE40F1DEF17AD00FDE44D /* pakcontrast in Resources */,
@@ -2932,7 +2936,6 @@
 					"~/Library/SDL2/include",
 				);
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/SDL/lib\"",
@@ -2971,7 +2974,6 @@
 					"~/Library/SDL2/include",
 				);
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/SDL/lib\"",
@@ -3008,7 +3010,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				PREBINDING = NO;
@@ -3039,7 +3041,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				OTHER_CFLAGS = "";
 				PREBINDING = NO;
 				SDKROOT = iphoneos;

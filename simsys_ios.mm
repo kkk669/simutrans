@@ -302,9 +302,6 @@ int dr_os_open(int w, int h, int const fullscreen)
 		return 0;
 	}
 
-	// iOS: Force landscape mode
-	SDL_SetHint("SDL_HINT_ORIENTATIONS", "LandscapeLeft LandscapeRight");
-
 	if(  !internal_create_surfaces( true, w, h )  ) {
 		return 0;
 	}
@@ -318,9 +315,6 @@ int dr_os_open(int w, int h, int const fullscreen)
 
 	display_set_actual_width( width );
 	display_set_height( height );
-
-	// iOS: Hide the systems status bar
-	[UIApplication sharedApplication].statusBarHidden = YES;
 
 	return width;
 }
@@ -778,17 +772,13 @@ char const* dr_query_homedir()
 
 void dr_start_textinput()
 {
-	if(  env_t::hide_keyboard  ) {
-		SDL_StartTextInput();
-	}
+	SDL_StartTextInput();
 }
 
 
 void dr_stop_textinput()
 {
-	if(  env_t::hide_keyboard  ) {
-		SDL_StopTextInput();
-	}
+	SDL_StopTextInput();
 }
 
 void dr_notify_input_pos(int x, int y)
