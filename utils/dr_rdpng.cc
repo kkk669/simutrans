@@ -1,6 +1,6 @@
 
 #include <string>
-#include <png.h>
+#include "../include_libpng/png.h"
 #include <setjmp.h>
 #include <stdlib.h>
 #include <errno.h>

@@ -283,7 +283,7 @@ void log_t::fatal(const char *who, const char *format, ...)
 
 #ifdef SYSLOG
 	if (  syslog  ) {
-		::syslog( LOG_ERR, buffer );
+		::syslog( LOG_ERR, "%s", buffer );
 	}
 #endif
 
@@ -428,7 +428,7 @@ log_t::log_t( const char *logfilename, bool force_flush, bool log_debug, bool lo
 		}
 #ifdef SYSLOG
 		if (  syslog  ) {
-			::syslog( LOG_NOTICE, greeting );
+			::syslog( LOG_NOTICE, "%s", greeting );
 		}
 #else
 		(void)syslogtag;

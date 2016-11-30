@@ -4,7 +4,7 @@
  * This file is part of the Simutrans project under the artistic license.
  */
 
-#include <SDL.h>
+#include "include_sdl/SDL.h"
 
 #include <stdio.h>
 
@@ -15,6 +15,10 @@
 #include "simevent.h"
 #include "display/simgraph.h"
 #include "simdebug.h"
+#include "dataobj/environment.h"
+#include "gui/simwin.h"
+#include "gui/components/gui_komponente.h"
+#include "gui/components/gui_textinput.h"
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
@@ -90,6 +94,35 @@ static SDL_Cursor *arrow;
 static SDL_Cursor *hourglass;
 static SDL_Cursor *blank;
 
+
+int x_scale = 32;
+int y_scale = 32;
+
+
+// no autoscaling yet
+bool dr_auto_scale(bool on_off )
+{
+#if SDL_VERSION_ATLEAST(2,0,4)
+	if(  on_off  ) {
+		float hdpi, vdpi;
+		SDL_Init( SDL_INIT_VIDEO | SDL_INIT_NOPARACHUTE );
+		if(  SDL_GetDisplayDPI( 0, NULL, &hdpi, &vdpi )==0  ) {
+			x_scale = ((long)hdpi*32+1)/96;
+			y_scale = ((long)vdpi*32+1)/96;
+			return true;
+		}
+		return false;
+	}
+	else
+#else
+#pragma message "SDL version must be at least 2.0.4 to support autoscaling."
+#endif
+	{
+		x_scale = 32;
+		y_scale = 32;
+		return false;
+	}
+}
 
 /*
  * Hier sind die Basisfunktionen zur Initialisierung der
@@ -651,6 +684,12 @@ void dr_start_textinput()
 void dr_stop_textinput()
 {
     SDL_StartTextInput();
+}
+
+void dr_notify_input_pos(int x, int y)
+{
+	SDL_Rect rect = { (x*x_scale)/32, ((y + LINESPACE)*y_scale)/32, 1, 1};
+	SDL_SetTextInputRect( &rect );
 }
 
 int main(int argc, char **argv)

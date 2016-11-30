@@ -488,9 +488,6 @@ void gui_textinput_t::display_with_focus(scr_coord offset, bool has_focus)
 		else {
 			dr_stop_textinput();
 		}
-        else {
-            dr_stop_textinput();
-        }
 		focus_recieved = has_focus;
 	}
 
