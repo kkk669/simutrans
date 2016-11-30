@@ -16,6 +16,21 @@
 		29BADF641DEEF65700FDE44D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29BADF631DEEF65700FDE44D /* AVFoundation.framework */; };
 		29BADF661DEEF68200FDE44D /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29BADF651DEEF68200FDE44D /* GameController.framework */; };
 		29BADF681DEEF6AE00FDE44D /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29BADF671DEEF6AE00FDE44D /* CoreMotion.framework */; };
+		29BAE4041DEF17AD00FDE44D /* pak.japan in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE3F61DEF17AD00FDE44D /* pak.japan */; };
+		29BAE4051DEF17AD00FDE44D /* pak.nippon in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE3F71DEF17AD00FDE44D /* pak.nippon */; };
+		29BAE4061DEF17AD00FDE44D /* pak32 in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE3F81DEF17AD00FDE44D /* pak32 */; };
+		29BAE4071DEF17AD00FDE44D /* pak48.Excentrique in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE3F91DEF17AD00FDE44D /* pak48.Excentrique */; };
+		29BAE4081DEF17AD00FDE44D /* pak64.german in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE3FA1DEF17AD00FDE44D /* pak64.german */; };
+		29BAE4091DEF17AD00FDE44D /* pak64.scifi in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE3FB1DEF17AD00FDE44D /* pak64.scifi */; };
+		29BAE40A1DEF17AD00FDE44D /* pak96.comic in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE3FC1DEF17AD00FDE44D /* pak96.comic */; };
+		29BAE40B1DEF17AD00FDE44D /* pak128 in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE3FD1DEF17AD00FDE44D /* pak128 */; };
+		29BAE40C1DEF17AD00FDE44D /* pak128.Britain in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE3FE1DEF17AD00FDE44D /* pak128.Britain */; };
+		29BAE40D1DEF17AD00FDE44D /* PAK128.german in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE3FF1DEF17AD00FDE44D /* PAK128.german */; };
+		29BAE40E1DEF17AD00FDE44D /* pak192.comic in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE4001DEF17AD00FDE44D /* pak192.comic */; };
+		29BAE40F1DEF17AD00FDE44D /* pakcontrast in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE4011DEF17AD00FDE44D /* pakcontrast */; };
+		29BAE4101DEF17AD00FDE44D /* pakHAJO in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE4021DEF17AD00FDE44D /* pakHAJO */; };
+		29BAE4111DEF17AD00FDE44D /* pakHD in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE4031DEF17AD00FDE44D /* pakHD */; };
+		29BAE4131DEF439700FDE44D /* pak in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE4121DEF439700FDE44D /* pak */; };
 		5FAA4287198D09C300F2849F /* brueckenbauer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 5FAA4279198D09C200F2849F /* brueckenbauer.cc */; };
 		5FAA4288198D09C300F2849F /* fabrikbauer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 5FAA427B198D09C200F2849F /* fabrikbauer.cc */; };
 		5FAA4289198D09C300F2849F /* hausbauer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 5FAA427D198D09C200F2849F /* hausbauer.cc */; };
@@ -379,7 +394,6 @@
 		89E304B61DEDF1A60023F137 /* way_obj_writer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89E304971DEDF1A60023F137 /* way_obj_writer.cc */; };
 		89E304B71DEDF1A60023F137 /* way_writer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89E304991DEDF1A60023F137 /* way_writer.cc */; };
 		89E304B81DEDF1A60023F137 /* xref_writer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89E3049B1DEDF1A60023F137 /* xref_writer.cc */; };
-		89E304BC1DEDF4600023F137 /* pak in Resources */ = {isa = PBXBuildFile; fileRef = 89E304BB1DEDF4600023F137 /* pak */; };
 		FD779EDE0E26BA1200F39101 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD779EDD0E26BA1200F39101 /* CoreAudio.framework */; };
 		FD77A0850E26BDB800F39101 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD77A0840E26BDB800F39101 /* AudioToolbox.framework */; };
 		FDB8BFC60E5A0F6A00980157 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDB8BFC50E5A0F6A00980157 /* CoreGraphics.framework */; };
@@ -480,6 +494,21 @@
 		29BADF701DEF077400FDE44D /* pngconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pngconf.h; path = ../include_libpng/pngconf.h; sourceTree = "<group>"; };
 		29BADF711DEF077400FDE44D /* pnglibconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pnglibconf.h; path = ../include_libpng/pnglibconf.h; sourceTree = "<group>"; };
 		29BADF721DEF077F00FDE44D /* pngpriv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pngpriv.h; path = ../include_libpng/private/pngpriv.h; sourceTree = "<group>"; };
+		29BAE3F61DEF17AD00FDE44D /* pak.japan */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pak.japan; path = ../pak.japan; sourceTree = "<group>"; };
+		29BAE3F71DEF17AD00FDE44D /* pak.nippon */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pak.nippon; path = ../pak.nippon; sourceTree = "<group>"; };
+		29BAE3F81DEF17AD00FDE44D /* pak32 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pak32; path = ../pak32; sourceTree = "<group>"; };
+		29BAE3F91DEF17AD00FDE44D /* pak48.Excentrique */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pak48.Excentrique; path = ../pak48.Excentrique; sourceTree = "<group>"; };
+		29BAE3FA1DEF17AD00FDE44D /* pak64.german */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pak64.german; path = ../pak64.german; sourceTree = "<group>"; };
+		29BAE3FB1DEF17AD00FDE44D /* pak64.scifi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pak64.scifi; path = ../pak64.scifi; sourceTree = "<group>"; };
+		29BAE3FC1DEF17AD00FDE44D /* pak96.comic */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pak96.comic; path = ../pak96.comic; sourceTree = "<group>"; };
+		29BAE3FD1DEF17AD00FDE44D /* pak128 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pak128; path = ../pak128; sourceTree = "<group>"; };
+		29BAE3FE1DEF17AD00FDE44D /* pak128.Britain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pak128.Britain; path = ../pak128.Britain; sourceTree = "<group>"; };
+		29BAE3FF1DEF17AD00FDE44D /* PAK128.german */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PAK128.german; path = ../PAK128.german; sourceTree = "<group>"; };
+		29BAE4001DEF17AD00FDE44D /* pak192.comic */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pak192.comic; path = ../pak192.comic; sourceTree = "<group>"; };
+		29BAE4011DEF17AD00FDE44D /* pakcontrast */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pakcontrast; path = ../pakcontrast; sourceTree = "<group>"; };
+		29BAE4021DEF17AD00FDE44D /* pakHAJO */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pakHAJO; path = ../pakHAJO; sourceTree = "<group>"; };
+		29BAE4031DEF17AD00FDE44D /* pakHD */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pakHD; path = ../pakHD; sourceTree = "<group>"; };
+		29BAE4121DEF439700FDE44D /* pak */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pak; path = ../pak; sourceTree = "<group>"; };
 		5FAA4279198D09C200F2849F /* brueckenbauer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = brueckenbauer.cc; path = ../bauer/brueckenbauer.cc; sourceTree = "<group>"; };
 		5FAA427A198D09C200F2849F /* brueckenbauer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = brueckenbauer.h; path = ../bauer/brueckenbauer.h; sourceTree = "<group>"; };
 		5FAA427B198D09C200F2849F /* fabrikbauer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fabrikbauer.cc; path = ../bauer/fabrikbauer.cc; sourceTree = "<group>"; };
@@ -1229,7 +1258,6 @@
 		89E3049A1DEDF1A60023F137 /* way_writer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = way_writer.h; path = ../besch/writer/way_writer.h; sourceTree = "<group>"; };
 		89E3049B1DEDF1A60023F137 /* xref_writer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = xref_writer.cc; path = ../besch/writer/xref_writer.cc; sourceTree = "<group>"; };
 		89E3049C1DEDF1A60023F137 /* xref_writer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xref_writer.h; path = ../besch/writer/xref_writer.h; sourceTree = "<group>"; };
-		89E304BB1DEDF4600023F137 /* pak */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pak; path = ../pak; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FD779EDD0E26BA1200F39101 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		FD77A0840E26BDB800F39101 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -2345,7 +2373,21 @@
 		5FAA4C04198D197C00F2849F /* paks */ = {
 			isa = PBXGroup;
 			children = (
-				89E304BB1DEDF4600023F137 /* pak */,
+				29BAE4121DEF439700FDE44D /* pak */,
+				29BAE3F61DEF17AD00FDE44D /* pak.japan */,
+				29BAE3F71DEF17AD00FDE44D /* pak.nippon */,
+				29BAE3F81DEF17AD00FDE44D /* pak32 */,
+				29BAE3F91DEF17AD00FDE44D /* pak48.Excentrique */,
+				29BAE3FA1DEF17AD00FDE44D /* pak64.german */,
+				29BAE3FB1DEF17AD00FDE44D /* pak64.scifi */,
+				29BAE3FC1DEF17AD00FDE44D /* pak96.comic */,
+				29BAE3FD1DEF17AD00FDE44D /* pak128 */,
+				29BAE3FE1DEF17AD00FDE44D /* pak128.Britain */,
+				29BAE3FF1DEF17AD00FDE44D /* PAK128.german */,
+				29BAE4001DEF17AD00FDE44D /* pak192.comic */,
+				29BAE4011DEF17AD00FDE44D /* pakcontrast */,
+				29BAE4021DEF17AD00FDE44D /* pakHAJO */,
+				29BAE4031DEF17AD00FDE44D /* pakHD */,
 			);
 			name = paks;
 			sourceTree = "<group>";
@@ -2470,28 +2512,42 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29BAE4091DEF17AD00FDE44D /* pak64.scifi in Resources */,
 				5FAA4BF8198D192200F2849F /* copyright.txt in Resources */,
-				89E304BC1DEDF4600023F137 /* pak in Resources */,
 				5FAA4C0A198D27E900F2849F /* Images.xcassets in Resources */,
 				5FAA4C00198D192200F2849F /* script in Resources */,
 				5FAA4BFA198D192200F2849F /* history.txt in Resources */,
+				29BAE4071DEF17AD00FDE44D /* pak48.Excentrique in Resources */,
 				5FAA4C02198D192200F2849F /* thanks.txt in Resources */,
 				5FAA461D198D0B1C00F2849F /* Doxyfile_SQAPI in Resources */,
+				29BAE4061DEF17AD00FDE44D /* pak32 in Resources */,
 				5FAA4BF7198D192200F2849F /* config in Resources */,
 				5FAA4BF9198D192200F2849F /* font in Resources */,
 				5FAA461E198D0B1C00F2849F /* export.awk in Resources */,
+				29BAE4041DEF17AD00FDE44D /* pak.japan in Resources */,
 				5FAA4621198D0B1C00F2849F /* filter_sq.sh in Resources */,
 				89E3042A1DEDEE980023F137 /* squirrel_types_ai.awk in Resources */,
+				29BAE40B1DEF17AD00FDE44D /* pak128 in Resources */,
 				5FAA4BFC198D192200F2849F /* license.txt in Resources */,
 				5FAA4BF6198D192200F2849F /* change_request.txt in Resources */,
+				29BAE4081DEF17AD00FDE44D /* pak64.german in Resources */,
 				5FAA4C03198D192200F2849F /* themes in Resources */,
+				29BAE40D1DEF17AD00FDE44D /* PAK128.german in Resources */,
 				5FAA4BFF198D192200F2849F /* readme.txt in Resources */,
+				29BAE40F1DEF17AD00FDE44D /* pakcontrast in Resources */,
 				5FAA4BFE198D192200F2849F /* problem_report.txt in Resources */,
+				29BAE4111DEF17AD00FDE44D /* pakHD in Resources */,
 				89E3042B1DEDEE980023F137 /* squirrel_types_scenario.awk in Resources */,
 				5FAA4C01198D192200F2849F /* text in Resources */,
+				29BAE4131DEF439700FDE44D /* pak in Resources */,
+				29BAE40C1DEF17AD00FDE44D /* pak128.Britain in Resources */,
 				5FAA4BFD198D192200F2849F /* music in Resources */,
 				5FAA4620198D0B1C00F2849F /* filter_cpp.sh in Resources */,
+				29BAE4051DEF17AD00FDE44D /* pak.nippon in Resources */,
+				29BAE40E1DEF17AD00FDE44D /* pak192.comic in Resources */,
+				29BAE4101DEF17AD00FDE44D /* pakHAJO in Resources */,
 				5FAA4BFB198D192200F2849F /* license_squirrel.txt in Resources */,
+				29BAE40A1DEF17AD00FDE44D /* pak96.comic in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

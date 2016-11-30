@@ -2,11 +2,23 @@
  * Copyright (c) 1997 - 2001 Hansjörg Malthaner
  *
  * This file is part of the Simutrans project under the artistic license.
+ *
+ * It contains the code to use the SDL2 backend for simutrans displayu
+ *
  */
 
 #include "include_sdl/SDL.h"
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 #include <stdio.h>
+
+#ifdef __CYGWIN__
+extern int __argc;
+extern char **__argv;
+#endif
 
 #include "macros.h"
 #include "simsys_w32_png.h"
@@ -22,6 +34,12 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+
+// Both backends have critical bugs...
+#if !defined(_WIN32) && !defined(__linux__)
+#define USE_SDL_TEXTEDITING
+#else
+#endif
 
 static Uint8 hourglass_cursor[] = {
 	0x3F, 0xFE, //   *************
@@ -138,7 +156,9 @@ bool dr_os_init(const int* parameter)
 	printf("SDL Driver: %s\n", SDL_GetCurrentVideoDriver() );
 
 	// disable event types not interested in
+#ifndef USE_SDL_TEXTEDITING
 	SDL_EventState( SDL_TEXTEDITING, SDL_DISABLE );
+#endif
 	SDL_EventState( SDL_FINGERDOWN, SDL_DISABLE );
 	SDL_EventState( SDL_FINGERUP, SDL_DISABLE );
 	SDL_EventState( SDL_FINGERMOTION, SDL_DISABLE );
@@ -168,13 +188,13 @@ resolution dr_query_screen_resolution()
 	SDL_DisplayMode mode;
 	SDL_GetCurrentDisplayMode( 0, &mode );
 	DBG_MESSAGE("dr_query_screen_resolution(SDL)", "screen resolution width=%d, height=%d", mode.w, mode.h );
-	res.w = mode.w;
-	res.h = mode.h;
+	res.w = (mode.w*32)/x_scale;
+	res.h = (mode.h*32)/y_scale;
 	return res;
 }
 
 
-bool internal_create_surfaces(const bool print_info)
+bool internal_create_surfaces(const bool print_info, int w, int h )
 {
 	// The pixel format needs to match the graphics code within simgraph16.cc.
 	// Note that alpha is handled by simgraph16, not by SDL.
@@ -186,13 +206,13 @@ bool internal_create_surfaces(const bool print_info)
 	const int num_rend = SDL_GetNumRenderDrivers();
 	for(  int i = 0;  i < num_rend;  i++  ) {
 		SDL_GetRenderDriverInfo( i, &ri );
-		if(  print_info  ) {
-			printf("Renderer: %s, Max_w: %d, Max_h: %d, Flags: %d, Formats: %d, ", ri.name, ri.max_texture_width, ri.max_texture_height, ri.flags, ri.num_texture_formats );
-			for(  Uint32 j = 0;  j < ri.num_texture_formats;  j++  ) {
-				printf("%s, ", SDL_GetPixelFormatName( ri.texture_formats[j] ));
-			}
-			printf("\n");
+		char str[4096];
+		str[0] = 0;
+		for(  Uint32 j = 0;  j < ri.num_texture_formats;  j++  ) {
+			strcat( str, ", " );
+			strcat( str, SDL_GetPixelFormatName( ri.texture_formats[j] ) );
 		}
+		DBG_DEBUG( "internal_create_surfaces()", "Renderer: %s, Max_w: %d, Max_h: %d, Flags: %d, Formats: %d%s", ri.name, ri.max_texture_width, ri.max_texture_height, ri.flags, ri.num_texture_formats, str );
 		if(  strcmp( "opengl", ri.name ) == 0  ) {
 			rend_index = i;
 		}
@@ -204,21 +224,26 @@ bool internal_create_surfaces(const bool print_info)
 	}
 	renderer = SDL_CreateRenderer( window, rend_index, flags );
 	if(  renderer == NULL  ) {
-		fprintf( stderr, "Couldn't create renderer: %s\n", SDL_GetError() );
-		return false;
-	}
-	if(  print_info  ) {
-		SDL_GetRendererInfo( renderer, &ri );
-		printf("Using: Renderer: %s, Max_w: %d, Max_h: %d, Flags: %d, Formats: %d, ", ri.name, ri.max_texture_width, ri.max_texture_height, ri.flags, ri.num_texture_formats );
-		for(  Uint32 j = 0;  j < ri.num_texture_formats;  j++  ) {
-			printf("%s, ", SDL_GetPixelFormatName( ri.texture_formats[j] ) );
+		dbg->warning( "internal_create_surfaces()", "Couldn't create opengl renderer: %s", SDL_GetError() );
+		// try all other renderer until success
+		// (however, on my windows machines opengles crashed, so the software renderer is never ever called)
+		for(  int i = 0;  i < num_rend  &&  renderer==NULL;  i++  ) {
+			if(  i != rend_index  ) {
+				renderer = SDL_CreateRenderer( window, i, flags );
+			}
 		}
-		printf("\n");
+		if(  renderer == NULL  ) {
+			dbg->fatal( "internal_create_surfaces()", "No SDL2 renderer found!" );
+		}
+		dbg->warning( "internal_create_surfaces()", "Using fallback render %s instead of opengl: Performance may be low!", ri.name );
 	}
+
+	SDL_GetRendererInfo( renderer, &ri );
+	DBG_DEBUG( "internal_create_surfaces()", "Using: Renderer: %s, Max_w: %d, Max_h: %d, Flags: %d, Formats: %d, %s", ri.name, ri.max_texture_width, ri.max_texture_height, ri.flags, ri.num_texture_formats, SDL_GetPixelFormatName(SDL_PIXELFORMAT_RGB565) );
 
 	screen_tx = SDL_CreateTexture( renderer, pixel_format, SDL_TEXTUREACCESS_STREAMING, width, height );
 	if(  screen_tx == NULL  ) {
-		fprintf( stderr, "Couldn't create texture: %s\n", SDL_GetError() );
+		dbg->error( "internal_create_surfaces()", "Couldn't create texture: %s", SDL_GetError() );
 		return false;
 	}
 
@@ -235,49 +260,52 @@ bool internal_create_surfaces(const bool print_info)
 	Uint32 rmask, gmask, bmask, amask;
 	SDL_PixelFormatEnumToMasks( pixel_format, &bpp, &rmask, &gmask, &bmask, &amask );
 	if(  bpp != COLOUR_DEPTH  ||  amask != 0  ) {
-		fprintf( stderr, "Pixel format error. %d != %d, %d != 0\n", bpp, COLOUR_DEPTH, amask );
+		dbg->error( "internal_create_surfaces()", "Pixel format error. %d != %d, %d != 0", bpp, COLOUR_DEPTH, amask );
 		return false;
 	}
 
 	screen = SDL_CreateRGBSurface( 0, width, height, bpp, rmask, gmask, bmask, amask );
 	if(  screen == NULL  ) {
-		fprintf( stderr, "Couldn't get the window surface: %s\n", SDL_GetError() );
+		dbg->error( "internal_create_surfaces()", "Couldn't get the window surface: %s", SDL_GetError() );
 		return false;
- 	}
+	}
 
 	if(  must_unlock  ) {
 		SDL_UnlockTexture( screen_tx );
- 	}
+	}
 
 	return true;
 }
 
 
 // open the window
-int dr_os_open(int const h, int w, int const fullscreen)
+int dr_os_open(int w, int h, int const fullscreen)
 {
+	// scale up
+	w = (w*x_scale)/32;
+	h = (h*y_scale)/32;
+
 	// some cards need those alignments
 	// especially 64bit want a border of 8bytes
 	w = (w + 15) & 0x7FF0;
 	if(  w <= 0  ) {
 		w = 16;
 	}
-    
-	width = w;
-	height = h;
 
-	//Uint32 flags = fullscreen ? SDL_WINDOW_FULLSCREEN : SDL_WINDOW_RESIZABLE;
-    Uint32 flags = SDL_WINDOW_RESIZABLE;
+	width = ((w*32)/x_scale+15) & 0x7FF0;
+	height = (h*32)/y_scale + 1;
+
+	Uint32 flags = fullscreen ? SDL_WINDOW_FULLSCREEN : SDL_WINDOW_RESIZABLE;
 	window = SDL_CreateWindow( SIM_TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, w, h, flags );
 	if(  window == NULL  ) {
 		fprintf( stderr, "Couldn't open the window: %s\n", SDL_GetError() );
 		return 0;
 	}
-    
-    // iOS: Force landscape mode
-    SDL_SetHint("SDL_HINT_ORIENTATIONS", "LandscapeLeft LandscapeRight");
 
-	if(  !internal_create_surfaces( true )  ) {
+	// iOS: Force landscape mode
+	SDL_SetHint("SDL_HINT_ORIENTATIONS", "LandscapeLeft LandscapeRight");
+
+	if(  !internal_create_surfaces( true, w, h )  ) {
 		return 0;
 	}
 	DBG_MESSAGE("dr_os_open(SDL)", "SDL realized screen size width=%d, height=%d (requested w=%d, h=%d)", screen->w, screen->h, w, h );
@@ -288,12 +316,13 @@ int dr_os_open(int const h, int w, int const fullscreen)
 	blank = SDL_CreateCursor( blank_cursor, blank_cursor, 8, 2, 0, 0 );
 	SDL_ShowCursor(1);
 
-	display_set_actual_width( w );
-    
-    // iOS: Hide the systems status bar
-    [UIApplication sharedApplication].statusBarHidden = YES;
-    
-	return w;
+	display_set_actual_width( width );
+	display_set_height( height );
+
+	// iOS: Hide the systems status bar
+	[UIApplication sharedApplication].statusBarHidden = YES;
+
+	return width;
 }
 
 
@@ -321,27 +350,26 @@ int dr_textur_resize(unsigned short** const textur, int w, int const h)
 
 	SDL_UnlockTexture( screen_tx );
 	if(  w != screen->w  ||  h != screen->h  ) {
-		width = w;
-		height = h;
+		width = (w*32l)/x_scale;
+		height = (h*32l)/y_scale;
 
 		SDL_SetWindowSize( window, w, h );
 		// Recreate the SDL surfaces at the new resolution.
 		SDL_DestroyTexture( screen_tx );
 		SDL_DestroyRenderer( renderer );
-		internal_create_surfaces( false );
+		internal_create_surfaces( false, w, h );
 		if(  screen  ) {
 			DBG_MESSAGE("dr_textur_resize(SDL)", "SDL realized screen size width=%d, height=%d (requested w=%d, h=%d)", screen->w, screen->h, w, h );
 		}
 		else {
-			if(  dbg  ) {
-				dbg->warning("dr_textur_resize(SDL)", "screen is NULL. Good luck!");
-			}
+			dbg->warning("dr_textur_resize(SDL)", "screen is NULL. Good luck!");
 		}
 		fflush( NULL );
 	}
 	*textur = dr_textur_init();
-	display_set_actual_width( w );
-	return w;
+	display_set_actual_width( width );
+	display_set_height( height );
+	return width;
 }
 
 
@@ -378,7 +406,14 @@ void dr_flush()
 	if(  !use_dirty_tiles  ) {
 		SDL_UpdateTexture( screen_tx, NULL, screen->pixels, screen->pitch );
 	}
-	SDL_RenderCopy( renderer, screen_tx, NULL, NULL );
+	if(  x_scale != 32  &&  y_scale != 32  ) {
+		SDL_Rect rDest = { 0, 0, (screen->w*x_scale)/32, (screen->h*y_scale)/32 };
+		SDL_Rect rSrc = { 0, 0, screen->w, screen->h };
+		SDL_RenderCopy( renderer, screen_tx, &rSrc, &rDest );
+	}
+	else {
+		SDL_RenderCopy( renderer, screen_tx, NULL, NULL );
+	}
 	SDL_RenderPresent( renderer );
 }
 
@@ -389,8 +424,8 @@ void dr_textur(int xp, int yp, int w, int h)
 		SDL_Rect r;
 		r.x = xp;
 		r.y = yp;
-		r.w = xp + w > screen->w ? screen->w - xp : w;
-		r.h = yp + h > screen->h ? screen->h - yp : h;
+		r.w = xp + w > width ? width - xp : w;
+		r.h = yp + h > height ? height - yp : h;
 		SDL_UpdateTexture( screen_tx, &r, (uint8*)screen->pixels + yp * screen->pitch + xp * 2, screen->pitch );
 	}
 }
@@ -399,7 +434,7 @@ void dr_textur(int xp, int yp, int w, int h)
 // move cursor to the specified location
 void move_pointer(int x, int y)
 {
-	SDL_WarpMouseInWindow( window, x, y );
+	SDL_WarpMouseInWindow( window, (x*x_scale)/32, (y*y_scale)/32 );
 }
 
 
@@ -418,8 +453,13 @@ void set_pointer(int loading)
  */
 int dr_screenshot(const char *filename, int x, int y, int w, int h)
 {
+#ifdef WIN32
+	if(  dr_screenshot_png( filename, w, h, width, ((unsigned short *)(screen->pixels)) + x + y * width, screen->format->BitsPerPixel )  ) {
+		return 1;
+	}
+#endif
+	(void)x; (void)y; (void)w; (void)h;
 	return SDL_SaveBMP( screen, filename ) == 0 ? 1 : -1;
-	return 0;
 }
 
 
@@ -433,27 +473,32 @@ static inline unsigned int ModifierKeys()
 	SDL_Keymod mod = SDL_GetModState();
 
 	return
-		(mod & KMOD_SHIFT ? 1 : 0)
-		| (mod & KMOD_CTRL ? 2 : 0)
+	(mod & KMOD_SHIFT ? 1 : 0)
+	| (mod & KMOD_CTRL ? 2 : 0)
 #ifdef __APPLE__
-		// Treat the Command key as a control key.
-		| (mod & KMOD_GUI ? 2 : 0)
+	// Treat the Command key as a control key.
+	| (mod & KMOD_GUI ? 2 : 0)
 #endif
-		;
+	;
 }
 
 
 static int conv_mouse_buttons(Uint8 const state)
 {
 	return
-		(state & SDL_BUTTON_LMASK ? MOUSE_LEFTBUTTON  : 0) |
-		(state & SDL_BUTTON_MMASK ? MOUSE_MIDBUTTON   : 0) |
-		(state & SDL_BUTTON_RMASK ? MOUSE_RIGHTBUTTON : 0);
+	(state & SDL_BUTTON_LMASK ? MOUSE_LEFTBUTTON  : 0) |
+	(state & SDL_BUTTON_MMASK ? MOUSE_MIDBUTTON   : 0) |
+	(state & SDL_BUTTON_RMASK ? MOUSE_RIGHTBUTTON : 0);
 }
 
 
 static void internal_GetEvents(bool const wait)
 {
+#ifdef __APPLE__
+	// Apparently Cocoa SDL posts key events that meant to be used by IM...
+	// Ignoring SDL_KEYDOWN during preedit seems to work fine.
+	static bool composition_is_underway = false;
+#endif
 	SDL_Event event;
 	event.type = 1;
 	if(  wait  ) {
@@ -473,8 +518,8 @@ static void internal_GetEvents(bool const wait)
 				if(  event.type == SDL_MOUSEMOTION  ) {
 					sys_event.type = SIM_MOUSE_MOVE;
 					sys_event.code = SIM_MOUSE_MOVED;
-					sys_event.mx   = event.motion.x;
-					sys_event.my   = event.motion.y;
+					sys_event.mx   = (event.motion.x*32)/x_scale;
+					sys_event.my   = (event.motion.y*32)/y_scale;
 					sys_event.mb   = conv_mouse_buttons( event.motion.state );
 				}
 			}
@@ -483,6 +528,8 @@ static void internal_GetEvents(bool const wait)
 			return;
 		}
 	}
+
+	static char textinput[SDL_TEXTINPUTEVENT_TEXT_SIZE];
 	switch(  event.type  ) {
 		case SDL_WINDOWEVENT: {
 			if(  event.window.event == SDL_WINDOWEVENT_RESIZED  ) {
@@ -503,8 +550,8 @@ static void internal_GetEvents(bool const wait)
 				case SDL_BUTTON_X1:     sys_event.code = SIM_MOUSE_WHEELUP;     break;
 				case SDL_BUTTON_X2:     sys_event.code = SIM_MOUSE_WHEELDOWN;   break;
 			}
-			sys_event.mx      = event.button.x;
-			sys_event.my      = event.button.y;
+			sys_event.mx      = (event.button.x*32)/x_scale;
+			sys_event.my      = (event.button.y*32)/y_scale;
 			sys_event.mb      = conv_mouse_buttons( SDL_GetMouseState(0, 0) );
 			sys_event.key_mod = ModifierKeys();
 			break;
@@ -516,8 +563,8 @@ static void internal_GetEvents(bool const wait)
 				case SDL_BUTTON_MIDDLE: sys_event.code = SIM_MOUSE_MIDUP;   break;
 				case SDL_BUTTON_RIGHT:  sys_event.code = SIM_MOUSE_RIGHTUP; break;
 			}
-			sys_event.mx      = event.button.x;
-			sys_event.my      = event.button.y;
+			sys_event.mx      = (event.button.x*32)/x_scale;
+			sys_event.my      = (event.button.y*32)/y_scale;
 			sys_event.mb      = conv_mouse_buttons( SDL_GetMouseState(0, 0) );
 			sys_event.key_mod = ModifierKeys();
 			break;
@@ -529,10 +576,18 @@ static void internal_GetEvents(bool const wait)
 			break;
 		}
 		case SDL_KEYDOWN: {
+#ifdef __APPLE__
+			if(  composition_is_underway  ) {
+				break;
+			}
+#endif
 			unsigned long code;
-
+#ifdef _WIN32
+			// SDL doesn't set numlock state correctly on startup. Revert to win32 function as workaround.
+			const bool numlock = (GetKeyState(VK_NUMLOCK) & 1) != 0;
+#else
 			const bool numlock = SDL_GetModState() & KMOD_NUM;
-            
+#endif
 			sys_event.key_mod = ModifierKeys();
 			SDL_Keycode sym = event.key.keysym.sym;
 			switch(  sym  ) {
@@ -593,17 +648,60 @@ static void internal_GetEvents(bool const wait)
 			break;
 		}
 		case SDL_TEXTINPUT: {
-			size_t len = 0;
-			sys_event.type    = SIM_KEYBOARD;
-			sys_event.code    = utf8_to_utf16( (utf8*)event.text.text, &len );
+			size_t in_pos = 0;
+			utf16 uc = utf8_to_utf16( (utf8 *)event.text.text, &in_pos );
+			if(  event.text.text[in_pos]==0  ) {
+				// single character
+				sys_event.type    = SIM_KEYBOARD;
+				sys_event.code    = (unsigned long)uc;
+			}
+			else {
+				// string
+				strcpy( textinput, event.text.text );
+				sys_event.type    = SIM_STRING;
+				sys_event.ptr     = (void*)textinput;
+			}
 			sys_event.key_mod = ModifierKeys();
+#ifdef __APPLE__
+			composition_is_underway = false;
+#endif
 			break;
 		}
+#ifdef USE_SDL_TEXTEDITING
+		case SDL_TEXTEDITING: {
+			//printf( "SDL_TEXTEDITING {timestamp=%d, \"%s\", start=%d, length=%d}\n", event.edit.timestamp, event.edit.text, event.edit.start, event.edit.length );
+			strcpy( textinput, event.edit.text );
+#ifdef __APPLE__
+			if(  !textinput[0]  ) {
+				composition_is_underway = false;
+			}
+#endif
+			int i = 0;
+			int start = 0;
+			for(  ; i<event.edit.start; ++i  ) {
+				start = utf8_get_next_char( (utf8 *)event.edit.text, start );
+			}
+			int end = start;
+			for(  ; i<event.edit.start+event.edit.length; ++i  ) {
+				end = utf8_get_next_char( (utf8*)event.edit.text, end );
+			}
+
+			if(  gui_component_t *c = win_get_focus()  ) {
+				if(  gui_textinput_t *tinp = dynamic_cast<gui_textinput_t *>(c)  ) {
+					tinp->set_composition_status( textinput, start, end-start );
+				}
+			}
+#ifdef __APPLE__
+			composition_is_underway = true;
+#endif
+			break;
+		}
+#endif
 		case SDL_MOUSEMOTION: {
 			sys_event.type    = SIM_MOUSE_MOVE;
 			sys_event.code    = SIM_MOUSE_MOVED;
-			sys_event.mx      = event.motion.x;
-			sys_event.my      = event.motion.y;
+			sys_event.mx      = (event.motion.x*32)/x_scale;
+			sys_event.my      = (event.motion.y*32)/y_scale;
 			sys_event.mb      = conv_mouse_buttons( event.motion.state );
 			sys_event.key_mod = ModifierKeys();
 			break;
@@ -665,25 +763,32 @@ void dr_sleep(uint32 usec)
 	SDL_Delay( usec );
 }
 
+
 char const* dr_query_homedir()
 {
-    if (homedir[0] == 0) {
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *basePath = ([paths count] > 0) ? [paths firstObject] : nil;
-        [basePath getCString:homedir maxLength:512 encoding:NSUTF8StringEncoding];
-    }
-    
-    return homedir;
+	if (homedir[0] == 0) {
+		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+		NSString *basePath = ([paths count] > 0) ? [paths firstObject] : nil;
+		[basePath getCString:homedir maxLength:512 encoding:NSUTF8StringEncoding];
+	}
+
+	return homedir;
 }
+
 
 void dr_start_textinput()
 {
-    SDL_StartTextInput();
+	if(  env_t::hide_keyboard  ) {
+		SDL_StartTextInput();
+	}
 }
+
 
 void dr_stop_textinput()
 {
-    SDL_StartTextInput();
+	if(  env_t::hide_keyboard  ) {
+		SDL_StopTextInput();
+	}
 }
 
 void dr_notify_input_pos(int x, int y)
@@ -692,7 +797,25 @@ void dr_notify_input_pos(int x, int y)
 	SDL_SetTextInputRect( &rect );
 }
 
-int main(int argc, char **argv)
+#ifdef _MSC_VER
+// Needed for MS Visual C++ with /SUBSYSTEM:CONSOLE to work , if /SUBSYSTEM:WINDOWS this function is compiled but unreachable
+#undef main
+int main()
 {
-    return sysmain(argc, argv);
+	return WinMain(NULL,NULL,NULL,NULL);
+}
+#endif
+
+
+#ifdef _WIN32
+int CALLBACK WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
+#else
+int main(int argc, char **argv)
+#endif
+{
+#ifdef _WIN32
+	int    const argc = __argc;
+	char** const argv = __argv;
+#endif
+	return sysmain(argc, argv);
 }
