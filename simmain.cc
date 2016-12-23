@@ -493,13 +493,11 @@ int simu_main(int argc, char** argv)
 #ifdef __APPLE__
 		// change working directory from binary dir to bundle dir
 		if(  !strcmp((env_t::program_dir + (strlen(env_t::program_dir) - 20 )), ".app/Contents/MacOS/")  ) {
-			env_t::program_dir[strlen(env_t::program_dir) - 20] = 0;
-			while(  env_t::program_dir[strlen(env_t::program_dir) - 1] != '/'  ) {
-				env_t::program_dir[strlen(env_t::program_dir) - 1] = 0;
-			}
+			env_t::program_dir[strlen(env_t::program_dir) - 6] = 0;
+			strcat(env_t::program_dir, "Resources/");
 		}
 #endif
-
+		
 #ifdef __APPLE__
 		// Detect if the binary is started inside an application bundle
 		// Change working dir to bundle dir if that is the case or the game will search for the files inside the bundle
@@ -525,7 +523,11 @@ int simu_main(int argc, char** argv)
 	printf("Reading low level config data ...\n");
 	bool found_settings = false;
 	bool found_simuconf = false;
+#ifndef USE_SANDBOXING
 	bool multiuser = (gimme_arg(argc, argv, "-singleuser", 0) == NULL);
+#else
+	bool multiuser = true;
+#endif
 
 	tabfile_t simuconf;
 	char path_to_simuconf[24];
@@ -536,7 +538,9 @@ int simu_main(int argc, char** argv)
 			tabfileobj_t contents;
 			simuconf.read(contents);
 			// use different save directories
+#ifndef USE_SANDBOXING
 			multiuser = !(contents.get_int("singleuser_install", !multiuser)==1  ||  !multiuser);
+#endif
 			found_simuconf = true;
 		}
 		simuconf.close();
