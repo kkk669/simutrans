@@ -27,3 +27,4 @@
 *.patch
 *.log
 /doxygen
+.DS_Store
