@@ -91,11 +91,11 @@ static stringhashtable_tpl <const weg_besch_t *> alle_wegtypen;
 
 static void set_default(weg_besch_t const*& def, waytype_t const wtyp, sint32 const speed_limit = 1)
 {
-	def = wegbauer_t::weg_search(wtyp, speed_limit, 0, weg_t::type_flat);
+	def = wegbauer_t::weg_search(wtyp, speed_limit, 0, type_flat);
 }
 
 
-static void set_default(weg_besch_t const*& def, waytype_t const wtyp, weg_t::system_type const system_type, sint32 const speed_limit = 1)
+static void set_default(weg_besch_t const*& def, waytype_t const wtyp, systemtype_t const system_type, sint32 const speed_limit = 1)
 {
 	set_default(def, wtyp, speed_limit);
 	if (def) {
@@ -108,17 +108,17 @@ static void set_default(weg_besch_t const*& def, waytype_t const wtyp, weg_t::sy
 bool wegbauer_t::alle_wege_geladen()
 {
 	// some defaults to avoid hardcoded values
-	set_default(strasse_t::default_strasse,         road_wt,        weg_t::type_flat, 50);
+	set_default(strasse_t::default_strasse,         road_wt,        type_flat, 50);
 	if(  strasse_t::default_strasse == NULL ) {
 		dbg->fatal( "wegbauer_t::alle_wege_geladen()", "No road found at all!" );
 		return false;
 	}
 
-	set_default(schiene_t::default_schiene,         track_wt,       weg_t::type_flat, 80);
-	set_default(monorail_t::default_monorail,       monorail_wt,    weg_t::type_elevated); // Only elevated?
-	set_default(maglev_t::default_maglev,           maglev_wt,      weg_t::type_elevated); // Only elevated?
+	set_default(schiene_t::default_schiene,         track_wt,       type_flat, 80);
+	set_default(monorail_t::default_monorail,       monorail_wt,    type_elevated); // Only elevated?
+	set_default(maglev_t::default_maglev,           maglev_wt,      type_elevated); // Only elevated?
 	set_default(narrowgauge_t::default_narrowgauge, narrowgauge_wt);
-	set_default(kanal_t::default_kanal,             water_wt,       weg_t::type_all); // Also find hidden rivers.
+	set_default(kanal_t::default_kanal,             water_wt,       type_all); // Also find hidden rivers.
 	set_default(runway_t::default_runway,           air_wt);
 	set_default(wegbauer_t::leitung_besch,          powerline_wt);
 
@@ -155,7 +155,7 @@ bool wegbauer_t::register_besch(weg_besch_t *besch)
 }
 
 
-const vector_tpl<const weg_besch_t *>&  wegbauer_t::get_way_list(const waytype_t wtyp, const weg_t::system_type styp)
+const vector_tpl<const weg_besch_t *>&  wegbauer_t::get_way_list(const waytype_t wtyp, systemtype_t styp)
 {
 	static vector_tpl<const weg_besch_t *> dummy;
 	dummy.clear();
@@ -178,16 +178,16 @@ const vector_tpl<const weg_besch_t *>&  wegbauer_t::get_way_list(const waytype_t
  * The timeline is also respected.
  * @author prissi, gerw
  */
-const weg_besch_t* wegbauer_t::weg_search(const waytype_t wtyp, const sint32 speed_limit, const uint16 time, const weg_t::system_type system_type)
+const weg_besch_t* wegbauer_t::weg_search(const waytype_t wtyp, const sint32 speed_limit, const uint16 time, const systemtype_t system_type)
 {
 	const weg_besch_t* best = NULL;
 	bool best_allowed = false; // Does the best way fulfil the timeline?
 	FOR(stringhashtable_tpl<weg_besch_t const*>, const& i, alle_wegtypen) {
 		weg_besch_t const* const test = i.value;
 		if(  ((test->get_wtyp()==wtyp  &&
-			(test->get_styp()==system_type  ||  system_type==weg_t::type_all))  ||  (test->get_wtyp()==track_wt  &&  test->get_styp()==weg_t::type_tram  &&  wtyp==tram_wt))
+			(test->get_styp()==system_type  ||  system_type==type_all))  ||  (test->get_wtyp()==track_wt  &&  test->get_styp()==type_tram  &&  wtyp==tram_wt))
 			&&  test->get_cursor()->get_image_id(1)!=IMG_EMPTY  ) {
-				bool test_allowed = test->get_intro_year_month()<=time  &&  time<test->get_retire_year_month();
+			bool test_allowed = test->get_intro_year_month()<=time  &&  time<test->get_retire_year_month();
 				if(  !best_allowed  ||  time==0  ||  test_allowed  ) {
 					if(  best==NULL  ||
 						( best->get_topspeed() <  test->get_topspeed()  &&  test->get_topspeed() <=     speed_limit  )    || // closer to desired speed (from the low end)
@@ -307,10 +307,10 @@ static bool compare_ways(const weg_besch_t* a, const weg_besch_t* b)
  * Fill menu with icons of given waytype, return number of added entries
  * @author Hj. Malthaner/prissi/dariok
  */
-void wegbauer_t::fill_menu(tool_selector_t *tool_selector, const waytype_t wtyp, const weg_t::system_type styp, sint16 /*ok_sound*/)
+void wegbauer_t::fill_menu(tool_selector_t *tool_selector, const waytype_t wtyp, const systemtype_t styp, sint16 /*ok_sound*/)
 {
 	// check if scenario forbids this
-	const waytype_t rwtyp = wtyp!=track_wt  || styp!=weg_t::type_tram  ? wtyp : tram_wt;
+	const waytype_t rwtyp = wtyp!=track_wt  || styp!=type_tram  ? wtyp : tram_wt;
 	if (!welt->get_scenario()->is_tool_allowed(welt->get_active_player(), TOOL_BUILD_WAY | GENERAL_TOOL, rwtyp)) {
 		return;
 	}
@@ -361,7 +361,7 @@ bool wegbauer_t::check_crossing(const koord zv, const grund_t *bd, waytype_t wty
 		}
 	}
 	// special case: tram track on road
-	if ( (wtyp==road_wt  &&  w->get_waytype()==track_wt  &&  w->get_besch()->get_styp()==7)  ||
+	if ( (wtyp==road_wt  &&  w->get_waytype()==track_wt  &&  w->get_besch()->get_styp()==type_tram)  ||
 		     (wtyp0==tram_wt  &&  w->get_waytype()==road_wt) ) {
 		return true;
 	}
@@ -853,7 +853,7 @@ bool wegbauer_t::is_allowed_step(const grund_t *from, const grund_t *to, sint32 
 		case luft: // hsiegeln: runway
 			{
 				const weg_t *w = to->get_weg(air_wt);
-				if(  w  &&  w->get_besch()->get_styp()==1  &&  besch->get_styp()!=1 &&  ribi_t::is_single(w->get_ribi_unmasked())  ) {
+				if(  w  &&  w->get_besch()->get_styp()==type_runway  &&  besch->get_styp()!=type_runway  &&  ribi_t::is_single(w->get_ribi_unmasked())  ) {
 					// cannot go over the end of a runway with a taxiway
 					return false;
 				}
@@ -1082,7 +1082,7 @@ void wegbauer_t::check_for_bridge(const grund_t* parent_from, const grund_t* fro
 				}
 				if (  other  ) {
 					if (  (bautyp&bautyp_mask) == strasse  ) {
-						if (  other->get_waytype() != track_wt  ||  other->get_besch()->get_styp()!=weg_t::type_tram  ) {
+						if (  other->get_waytype() != track_wt  ||  other->get_besch()->get_styp()!=type_tram  ) {
 							// road only on tram
 							return;
 						}
@@ -1707,7 +1707,7 @@ bool wegbauer_t::intern_calc_route_runways(koord3d start3d, const koord3d ziel3d
 		// only straight runways!
 		return false;
 	}
-	const ribi_t::ribi ribi_gerade = ribi_t::doubles(ribi);
+	const ribi_t::ribi ribi_straight = ribi_t::doubles(ribi);
 
 	// not too close to the border?
 	if(	 !(welt->is_within_limits(start-koord(5,5))  &&  welt->is_within_limits(start+koord(5,5)))  ||
@@ -1723,22 +1723,22 @@ bool wegbauer_t::intern_calc_route_runways(koord3d start3d, const koord3d ziel3d
 	// end start
 	const grund_t *gr = welt->lookup_kartenboden(start);
 	const weg_t *weg = gr->get_weg(air_wt);
-	if(weg  &&  !ribi_t::is_straight(weg->get_ribi()|ribi_gerade)  ) {
+	if(weg  &&  !ribi_t::is_straight(weg->get_ribi()|ribi_straight)  ) {
 		// cannot connect with curve at the end
 		return false;
 	}
-	if(  weg  &&  weg->get_besch()->get_styp()==0  ) {
+	if(  weg  &&  weg->get_besch()->get_styp()==type_flat  ) {
 		//  could not continue taxiway with runway
 		return false;
 	}
 	// check end
 	gr = welt->lookup_kartenboden(ziel);
 	weg = gr->get_weg(air_wt);
-	if(weg  &&  !ribi_t::is_straight(weg->get_ribi()|ribi_gerade)  ) {
+	if(weg  &&  !ribi_t::is_straight(weg->get_ribi()|ribi_straight)  ) {
 		// cannot connect with curve at the end
 		return false;
 	}
-	if(  weg  &&  weg->get_besch()->get_styp()==0  ) {
+	if(  weg  &&  weg->get_besch()->get_styp()==type_flat  ) {
 		//  could not continue taxiway with runway
 		return false;
 	}
@@ -1752,7 +1752,7 @@ bool wegbauer_t::intern_calc_route_runways(koord3d start3d, const koord3d ziel3d
 			return false;
 		}
 		weg = to->get_weg(air_wt);
-		if(  weg  &&  weg->get_besch()->get_styp()==1  &&  (ribi_t::is_threeway(weg->get_ribi_unmasked()|ribi_gerade))  &&  (weg->get_ribi_unmasked()|ribi_gerade)!=ribi_t::all  ) {
+		if(  weg  &&  weg->get_besch()->get_styp()==type_runway  &&  (ribi_t::is_threeway(weg->get_ribi_unmasked()|ribi_straight))  &&  (weg->get_ribi_unmasked()|ribi_straight)!=ribi_t::all  ) {
 			// only fourway crossings of runways allowed, no threeways => fail
 			return false;
 		}
@@ -1775,7 +1775,7 @@ bool wegbauer_t::intern_calc_route_runways(koord3d start3d, const koord3d ziel3d
 void wegbauer_t::calc_straight_route(koord3d start, const koord3d ziel)
 {
 	DBG_MESSAGE("wegbauer_t::calc_straight_route()","from %d,%d,%d to %d,%d,%d",start.x,start.y,start.z, ziel.x,ziel.y,ziel.z );
-	if(bautyp==luft  &&  besch->get_styp()==1) {
+	if(bautyp==luft  &&  besch->get_styp()==type_runway) {
 		// these are straight anyway ...
 		intern_calc_route_runways(start, ziel);
 	}
@@ -1806,7 +1806,7 @@ uint32 ms = dr_time();
 #endif
 	INT_CHECK("simbau 740");
 
-	if(bautyp==luft  &&  besch->get_styp()==1) {
+	if(bautyp==luft  &&  besch->get_styp()==type_runway) {
 		assert( start.get_count() == 1  &&  ziel.get_count() == 1 );
 		intern_calc_route_runways(start[0], ziel[0]);
 	}
@@ -2010,7 +2010,7 @@ sint64 wegbauer_t::calc_costs()
 						if( weg->get_besch() == besch ) {
 							continue; // Nothing to pay on this tile.
 						}
-						if(  besch->get_styp() == 0  &&  weg->get_besch()->get_styp() == 7  &&  gr->get_weg_nr(0)->get_waytype() == road_wt  ) {
+						if(  besch->get_styp() == type_flat  &&  weg->get_besch()->get_styp() == type_tram  &&  gr->get_weg_nr(0)->get_waytype() == road_wt  ) {
 							// Don't replace a tram on a road with a normal track.
 							continue;
 						}
@@ -2085,7 +2085,7 @@ bool wegbauer_t::baue_tunnelboden()
 		if(wb==NULL) {
 			// now we search a matching way for the tunnels top speed
 			// ignore timeline to get consistent results
-			wb = wegbauer_t::weg_search( tunnel_besch->get_waytype(), tunnel_besch->get_topspeed(), 0, weg_t::type_flat );
+			wb = wegbauer_t::weg_search( tunnel_besch->get_waytype(), tunnel_besch->get_topspeed(), 0, type_flat );
 		}
 
 		if(gr==NULL) {
@@ -2291,7 +2291,7 @@ void wegbauer_t::baue_schiene()
 				// do not touch fences, tram way etc. if there is already same way with different type
 				// keep faster ways or if it is the same way ... (@author prissi)
 				if (weg->get_besch() == besch                                                               ||
-						(besch->get_styp() == 0 && weg->get_besch()->get_styp() == 7 && gr->has_two_ways())     ||
+						(besch->get_styp() == 0 && weg->get_besch()->get_styp() == type_tram  && gr->has_two_ways())     ||
 						keep_existing_ways                                                                      ||
 						(keep_existing_faster_ways && weg->get_besch()->get_topspeed() > besch->get_topspeed()) ||
 						(gr->get_typ() == grund_t::monorailboden && !(bautyp & elevated_flag)  &&  gr->get_weg_nr(0)->get_waytype()==besch->get_wtyp())) {
@@ -2300,7 +2300,7 @@ void wegbauer_t::baue_schiene()
 				}
 
 				// build tram track over crossing -> remove crossing
-				if(  gr->has_two_ways()  &&  besch->get_styp()==7  &&  weg->get_besch()->get_styp() != 7  ) {
+				if(  gr->has_two_ways()  &&  besch->get_styp()==type_tram  &&  weg->get_besch()->get_styp() != type_tram  ) {
 					if(  crossing_t *cr = gr->find<crossing_t>(2)  ) {
 						// change to tram track
 						cr->mark_image_dirty( cr->get_image(), 0);

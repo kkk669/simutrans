@@ -402,8 +402,7 @@ koord3d brueckenbauer_t::finde_ende(player_t *player, koord3d pos, const koord z
 			return koord3d::invalid;
 		}
 
-		if(  gr->hat_weg(air_wt)  &&  gr->get_styp(air_wt)==1  ) {
-			// sytem_type==1 is runway
+		if(  gr->hat_weg(air_wt)  &&  gr->get_styp(air_wt)==type_runway  ) {
 			error_msg = "No bridges over runways!";
 			return koord3d::invalid;
 		}
@@ -702,7 +701,7 @@ DBG_MESSAGE("brueckenbauer_t::baue()", "end not ok");
 		way_besch = lt->get_besch();
 	}
 	else {
-		way_besch = wegbauer_t::weg_search(besch->get_waytype(), besch->get_topspeed(), welt->get_timeline_year_month(), weg_t::type_flat);
+		way_besch = wegbauer_t::weg_search(besch->get_waytype(), besch->get_topspeed(), welt->get_timeline_year_month(), type_flat);
 	}
 
 	// Start and end have been checked, we can start to build eventually
@@ -800,7 +799,7 @@ void brueckenbauer_t::baue_bruecke(player_t *player, const koord3d start, const 
 	bool need_auffahrt = pos.z != end_slope_height;
 	if(  need_auffahrt  ) {
 		if(  weg_t const* const w = welt->lookup(end)->get_weg( weg_besch->get_wtyp() )  ) {
-			need_auffahrt &= w->get_besch()->get_styp() != weg_besch_t::elevated;
+			need_auffahrt &= w->get_besch()->get_styp() != type_elevated;
 		}
 	}
 

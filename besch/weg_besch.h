@@ -38,9 +38,6 @@ class tool_t;
 class weg_besch_t : public obj_besch_transport_infrastructure_t {
 	friend class way_reader_t;
 
-public:
-	enum { elevated=1, runway = 1, joined=7 /* only tram */, special=255 };
-
 private:
 
 	/**
@@ -101,10 +98,12 @@ public:
 
 	/**
 	* returns the system type of this way (mostly used with rails)
-	* @see weg_t::styp
+	* @see systemtype_t
 	* @author DarioK
 	*/
 	uint8 get_styp() const { return styp; }
+
+	bool is_tram() const { return wt == track_wt  &&  styp == type_tram; }
 
 	image_id get_image_id(ribi_t::ribi ribi, uint8 season, bool front = false) const
 	{

@@ -911,7 +911,7 @@ DBG_DEBUG("karte_t::distribute_groundobjs_cities()","prepare cities");
 		weg_besch_t const* besch = settings.get_intercity_road_type(get_timeline_year_month());
 		if(besch == 0) {
 			// Hajo: try some default (might happen with timeline ... )
-			besch = wegbauer_t::weg_search(road_wt,80,get_timeline_year_month(),weg_t::type_flat);
+			besch = wegbauer_t::weg_search(road_wt,80,get_timeline_year_month(),type_flat);
 		}
 
 		wegbauer_t bauigel (players[1] );
@@ -1535,7 +1535,7 @@ void karte_t::create_beaches(  int xoff, int yoff  )
 	for(  uint16 iy = 0;  iy < size_y;  iy++  ) {
 		for(  uint16 ix = (iy >= yoff - 19) ? 0 : max( xoff - 19, 0 );  ix < size_x;  ix++  ) {
 			grund_t *gr = lookup_kartenboden_nocheck(ix,iy);
-			if(  gr->ist_wasser()  && gr->get_hoehe()==grundwasser  ) {
+			if(  gr->ist_wasser()  &&  gr->get_hoehe()==grundwasser  &&  gr->kann_alle_obj_entfernen(NULL)==NULL) {
 				koord k( ix, iy );
 				uint8 neighbour_water = 0;
 				bool water[8];
@@ -3903,7 +3903,7 @@ void karte_t::recalc_average_speed()
 		}
 		else {
 			DBG_MESSAGE("karte_t::new_month()","Month %d has started", last_month);
-			city_road = wegbauer_t::weg_search(road_wt,50,get_timeline_year_month(),weg_t::type_flat);
+			city_road = wegbauer_t::weg_search(road_wt,50,get_timeline_year_month(),type_flat);
 		}
 
 	}
@@ -3911,7 +3911,7 @@ void karte_t::recalc_average_speed()
 		// defaults
 		city_road = settings.get_city_road_type(0);
 		if(city_road==NULL) {
-			city_road = wegbauer_t::weg_search(road_wt,50,0,weg_t::type_flat);
+			city_road = wegbauer_t::weg_search(road_wt,50,0,type_flat);
 		}
 	}
 }
@@ -5141,7 +5141,16 @@ void karte_t::load(loadsave_t *file)
 	min_height = max_height = grundwasser;
 	DBG_DEBUG("karte_t::laden()","grundwasser %i",grundwasser);
 
-	init_height_to_climate();
+	if(  file->get_version() < 112007  ) {
+		// r7930 fixed a bug in init_height_to_climate
+		// recover old behavior to not mix up climate when loading old savegames
+		grundwasser = settings.get_climate_borders()[0];
+		init_height_to_climate();
+		grundwasser = settings.get_grundwasser();
+	}
+	else {
+		init_height_to_climate();
+	}
 
 	// just an initialisation for the loading
 	season = (2+last_month/3)&3; // summer always zero

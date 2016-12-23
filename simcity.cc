@@ -2790,9 +2790,12 @@ void stadt_t::build_city_building(const koord k)
 	if(  !gr->ist_natur() ) {
 		return;
 	}
-	// again, should not happen ...
-	if( gr->kann_alle_obj_entfernen(NULL) != NULL ) {
-		return;
+	// test ownership of all objects that can block construction
+	for(  uint8 i = 0;  i < gr->obj_count();  i++  ) {
+		obj_t *const obj = gr->obj_bei(i);
+		if(  obj->is_deletable(NULL) != NULL  &&  obj->get_typ() != obj_t::pillar  ) {
+			return;
+		}
 	}
 	// Refuse to build on a slope, when there is a ground right on top of it (=> the house would sit on the bridge then!)
 	if(  gr->get_grund_hang() != slope_t::flat  &&  welt->lookup(koord3d(k, welt->max_hgt(k))) != NULL  ) {
@@ -3151,7 +3154,7 @@ bool stadt_t::baue_strasse(const koord k, player_t* player_, bool forced)
 	// only crossing or tramways allowed
 	if(  bd->hat_weg(track_wt)  ) {
 		weg_t* sch = bd->get_weg(track_wt);
-		if (sch->get_besch()->get_styp() != 7) {
+		if (sch->get_besch()->get_styp() != type_tram) {
 			// not a tramway
 			ribi_t::ribi r = sch->get_ribi_unmasked();
 			if (!ribi_t::is_straight(r)) {
@@ -3250,7 +3253,7 @@ bool stadt_t::baue_strasse(const koord k, player_t* player_, bool forced)
 		if(ribi_t::is_single(connection_roads)) {
 			koord zv = koord(ribi_t::backward(connection_roads));
 			grund_t *bd_next = welt->lookup_kartenboden( k + zv );
-			if(bd_next  &&  (bd_next->ist_wasser()  ||  (bd_next->hat_weg(water_wt)  &&  bd_next->get_weg(water_wt)->get_besch()->get_styp()==255))) {
+			if(bd_next  &&  (bd_next->ist_wasser()  ||  (bd_next->hat_weg(water_wt)  &&  bd_next->get_weg(water_wt)->get_besch()->get_styp()== type_river))) {
 				// ok there is a river
 				const bruecke_besch_t *bridge = brueckenbauer_t::find_bridge(road_wt, welt->get_city_road()->get_topspeed(), welt->get_timeline_year_month() );
 				if(  bridge==NULL  ) {

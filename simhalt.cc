@@ -40,7 +40,6 @@
 #include "boden/grund.h"
 #include "boden/wasser.h"
 #include "boden/wege/strasse.h"
-#include "boden/wege/weg.h"
 
 #include "dataobj/settings.h"
 #include "dataobj/schedule.h"
@@ -1438,7 +1437,7 @@ int haltestelle_t::search_route( const halthandle_t *const start_halts, const ui
 				// next transfer for the reverse route
 				// if the end halt and its connections contain more than one transfer halt then
 				// the transfer halt may not be the last transfer of the forward route
-				// (the re-routing will happen in haltestelle_t::hole_ab)
+				// (the re-routing will happen in haltestelle_t::fetch_goods)
 				return_ware->set_zwischenziel(current_halt_data.transfer);
 				// count the connected transfer halts (including end halt)
 				uint8 t = current_node.halt->is_transfer(ware_catg_idx);

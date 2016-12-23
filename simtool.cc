@@ -303,7 +303,7 @@ static grund_t *tool_intern_koord_to_weg_grund(player_t *player, karte_t *welt, 
 	// tram
 	if(wt==tram_wt) {
 		weg_t *way = gr->get_weg(track_wt);
-		if (way && way->get_besch()->get_styp() == weg_t::type_tram &&  way->is_deletable(player)==NULL) {
+		if (way  &&  way->get_besch()->get_styp() == type_tram &&  way->is_deletable(player)==NULL) {
 			return gr;
 		}
 		else {
@@ -2184,7 +2184,7 @@ const weg_besch_t *tool_build_way_t::get_besch( uint16 timeline_year_month, bool
 		if(besch==NULL  ||  !besch->is_available(timeline_year_month)) {
 			// search fastest way.
 			if(  wt == tram_wt  ||  wt == powerline_wt  ) {
-				besch = wegbauer_t::weg_search(wt, 0xffffffff, timeline_year_month, weg_t::type_flat);
+				besch = wegbauer_t::weg_search(wt, 0xffffffff, timeline_year_month, type_flat);
 			}
 			else {
 				// this triggers an assertion if wt == powerline_wt
@@ -2195,7 +2195,7 @@ const weg_besch_t *tool_build_way_t::get_besch( uint16 timeline_year_month, bool
 		}
 	}
 	if(  besch  &&  remember  ) {
-		if(  besch->get_styp() == weg_t::type_tram  ) {
+		if(  besch->get_styp() == type_tram  ) {
 			defaults[ tram_wt ] = besch;
 		}
 		else {
@@ -2211,7 +2211,7 @@ image_id tool_build_way_t::get_icon(player_t *) const
 	image_id image = icon;
 	bool is_tram = false;
 	if(  besch  ) {
-		is_tram = (besch->get_wtyp()==tram_wt) || (besch->get_styp() == weg_t::type_tram);
+		is_tram = (besch->get_wtyp()==tram_wt) || (besch->get_styp() == type_tram);
 		if(  image ==  IMG_EMPTY  ) {
 			image = besch->get_cursor()->get_image_id(1);
 		}
@@ -2294,11 +2294,10 @@ bool tool_build_way_t::init( player_t *player )
 waytype_t tool_build_way_t::get_waytype() const
 {
 	const weg_besch_t *besch = get_besch( welt->get_timeline_year_month(), false );
-	waytype_t wt = besch ? besch->get_wtyp() : invalid_wt;
-	if (  wt==track_wt  &&  besch->get_styp()==7  ) {
-		wt = tram_wt;
+	if (besch) {
+		return besch->is_tram() ? tram_wt : besch->get_wtyp();
 	}
-	return wt;
+	return invalid_wt;
 }
 
 uint8 tool_build_way_t::is_valid_pos(  player_t *player, const koord3d &pos, const char *&error, const koord3d & )
@@ -2307,10 +2306,10 @@ uint8 tool_build_way_t::is_valid_pos(  player_t *player, const koord3d &pos, con
 	grund_t *gr=welt->lookup(pos);
 	if(  gr  &&  slope_t::is_way(gr->get_weg_hang())  ) {
 		// ignore tunnel tiles (except road tunnel for tram track building ..)
-		if(  gr->get_typ() == grund_t::tunnelboden  &&  !gr->ist_karten_boden()  && !(besch->get_wtyp()==track_wt  &&  besch->get_styp()==7  && gr->hat_weg(road_wt)) ) {
+		if(  gr->get_typ() == grund_t::tunnelboden  &&  !gr->ist_karten_boden()  && !(besch->is_tram()  && gr->hat_weg(road_wt)) ) {
 			return 0;
 		}
-		bool const elevated = besch->get_styp() == 1  &&  besch->get_wtyp() != air_wt;
+		bool const elevated = besch->get_styp() == type_elevated  &&  besch->get_wtyp() != air_wt;
 		// ignore water
 		if(  besch->get_wtyp() != water_wt  &&  gr->get_typ() == grund_t::wasser  ) {
 			if(  !elevated  ||  welt->lookup_hgt( pos.get_2d() ) < welt->get_water_hgt( pos.get_2d() )  ) {
@@ -2359,11 +2358,11 @@ void tool_build_way_t::calc_route( wegbauer_t &bauigel, const koord3d &start, co
 {
 	// recalc type of construction
 	wegbauer_t::bautyp_t bautyp = (wegbauer_t::bautyp_t)besch->get_wtyp();
-	if(besch->get_wtyp()==track_wt  &&  besch->get_styp()==7) {
+	if(besch->is_tram()) {
 		bautyp = wegbauer_t::schiene_tram;
 	}
 	// elevated track?
-	if(besch->get_styp()==1  &&  besch->get_wtyp()!=air_wt) {
+	if(besch->get_styp()==type_elevated  &&  besch->get_wtyp()!=air_wt) {
 		bautyp |= wegbauer_t::elevated_flag;
 	}
 
@@ -2403,7 +2402,7 @@ void tool_build_way_t::mark_tiles(  player_t *player, const koord3d &start, cons
 	wegbauer_t bauigel(player);
 	calc_route( bauigel, start, end );
 
-	uint8 offset = (besch->get_styp() == 1  &&  besch->get_wtyp() != air_wt) ? welt->get_settings().get_way_height_clearance() : 0;
+	uint8 offset = (besch->get_styp() == type_elevated  &&  besch->get_wtyp() != air_wt) ? welt->get_settings().get_way_height_clearance() : 0;
 
 	if(  bauigel.get_count()>1  ) {
 		// Set tooltip first (no dummygrounds, if bauigel.calc_casts() is called).
@@ -2514,7 +2513,7 @@ const char *tool_build_bridge_t::do_work( player_t *player, const koord3d &start
 		const char *error;
 		koord3d end2 = brueckenbauer_t::finde_ende(player, start, zv, besch, error, bridge_height, false, koord_distance(start, end), is_ctrl_pressed());
 		assert(end2 == end); (void)end2;
-		brueckenbauer_t::baue_bruecke( player, start, end, zv, bridge_height, besch, wegbauer_t::weg_search(besch->get_waytype(), besch->get_topspeed(), welt->get_timeline_year_month(), weg_t::type_flat));
+		brueckenbauer_t::baue_bruecke( player, start, end, zv, bridge_height, besch, wegbauer_t::weg_search(besch->get_waytype(), besch->get_topspeed(), welt->get_timeline_year_month(), type_flat));
 		return NULL; // all checks are performed before building.
 	}
 }
@@ -2620,7 +2619,7 @@ void tool_build_bridge_t::mark_tiles(  player_t *player, const koord3d &start, c
 	}
 	else {
 		if (besch->get_waytype() == powerline_wt  ? !gr->find<leitung_t>() : !gr->hat_weg(besch->get_waytype())) {
-			const weg_besch_t *weg_besch = wegbauer_t::weg_search(besch->get_waytype(), besch->get_topspeed(), welt->get_timeline_year_month(), weg_t::type_flat);
+			const weg_besch_t *weg_besch = wegbauer_t::weg_search(besch->get_waytype(), besch->get_topspeed(), welt->get_timeline_year_month(), type_flat);
 			costs += weg_besch->get_preis();
 		}
 	}
@@ -2687,7 +2686,7 @@ uint8 tool_build_bridge_t::is_valid_pos(  player_t *player, const koord3d &pos, 
 					for(int i=0;i<2;i++) {
 						const weg_t *w = gr->get_weg_nr(i);
 						if (w) {
-							if (w->get_waytype()!=road_wt  &&  (w->get_waytype()!=track_wt  ||  w->get_besch()->get_styp()!=tram_wt)) {
+							if (w->get_waytype()!=road_wt  &&  !w->get_besch()->is_tram()) {
 								return 0;
 							}
 							rw |= w->get_ribi_unmasked();
@@ -2795,7 +2794,7 @@ void tool_build_tunnel_t::calc_route( wegbauer_t &bauigel, const koord3d &start,
 	const weg_besch_t *wb = besch->get_weg_besch();
 	if(wb==NULL) {
 		// ignore timeline to get consistent results
-		wb = wegbauer_t::weg_search( besch->get_waytype(), besch->get_topspeed(), 0, weg_t::type_flat );
+		wb = wegbauer_t::weg_search( besch->get_waytype(), besch->get_topspeed(), 0, type_flat );
 	}
 
 	bauigel.route_fuer(bt | wegbauer_t::tunnel_flag, wb, besch);
@@ -2879,7 +2878,7 @@ void tool_build_tunnel_t::mark_tiles(  player_t *player, const koord3d &start, c
 	const weg_besch_t *wb = besch->get_weg_besch();
 	if(wb==NULL) {
 		// ignore timeline to get consistent results
-		wb = wegbauer_t::weg_search( besch->get_waytype(), besch->get_topspeed(), 0, weg_t::type_flat );
+		wb = wegbauer_t::weg_search( besch->get_waytype(), besch->get_topspeed(), 0, type_flat );
 	}
 
 	welt->lookup_kartenboden(end.get_2d())->clear_flag(grund_t::marked);
@@ -4093,7 +4092,7 @@ DBG_MESSAGE("tool_station_aux()", "building %s on square %d,%d for waytype %x", 
 		return NOTICE_UNSUITABLE_GROUND;
 	}
 
-	if(  bd->hat_weg(air_wt)  &&  bd->get_weg(air_wt)->get_besch()->get_styp()!=0  ) {
+	if(  bd->hat_weg(air_wt)  &&  bd->get_weg(air_wt)->get_besch()->get_styp()!=type_flat  ) {
 		return "Flugzeughalt muss auf\nRunway liegen!\n";
 	}
 
@@ -4597,7 +4596,7 @@ const char* tool_build_roadsign_t::check_pos_intern(player_t *player, koord3d po
 		ribi_t::ribi dir = weg->get_ribi_unmasked();
 
 		// no signs on runways
-		if(  weg->get_waytype() == air_wt  &&  weg->get_besch()->get_styp() == weg_besch_t::runway  ) {
+		if(  weg->get_waytype() == air_wt  &&  weg->get_besch()->get_styp() == type_runway  ) {
 			return error;
 		}
 
@@ -5023,7 +5022,7 @@ const char *tool_build_depot_t::tool_depot_aux(player_t *player, koord3d pos, co
 		}
 
 		// no depots on runways!
-		if(besch->get_extra()==air_wt  &&  bd->get_weg(air_wt)->get_besch()->get_styp()!=0) {
+		if(besch->get_extra()==air_wt  &&  bd->get_weg(air_wt)->get_besch()->get_styp()!=type_flat) {
 			return NOTICE_DEPOT_BAD_POS;
 		}
 
