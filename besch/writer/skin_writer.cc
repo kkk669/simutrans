@@ -23,9 +23,9 @@ void skin_writer_t::write_obj(FILE* fp, obj_node_t& parent, tabfileobj_t& obj)
 		if(  str.empty()  ) {
 			break;
 		}
-		if(  debuglevel > 2  ) {
+		/*if(  debuglevel > 2  ) {
 			printf("%10sImage[%3u] =%s\n", " ", i, str.c_str());
-		}
+		}*/
 		keys.append(str);
 	}
 	write_obj(fp, parent, obj, keys);
