@@ -13,6 +13,9 @@
 		89243FD81E0D8B4100443512 /* sha1.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89243FD61E0D8B4100443512 /* sha1.cc */; };
 		89243FE01E0DA55700443512 /* simsys_mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89243FDF1E0DA55700443512 /* simsys_mac.mm */; };
 		89243FE31E0DAE4800443512 /* pak128 in Resources */ = {isa = PBXBuildFile; fileRef = 89243FE21E0DAE4800443512 /* pak128 */; };
+		89243FEB1E0DB89800443512 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89243FEA1E0DB89800443512 /* AVFoundation.framework */; };
+		89243FF01E0DBC8B00443512 /* avmidiplayer_midi.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89243FEF1E0DBC8B00443512 /* avmidiplayer_midi.mm */; };
+		89243FF21E0DBEFB00443512 /* avaudioplayer_sound.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89243FF11E0DBEFB00443512 /* avaudioplayer_sound.mm */; };
 		894C18CE1E0D7D9400EAC069 /* pak in Resources */ = {isa = PBXBuildFile; fileRef = 894C18CD1E0D7D9400EAC069 /* pak */; };
 		894C18D01E0D7E9000EAC069 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 894C18CF1E0D7E9000EAC069 /* libz.tbd */; };
 		894C18D21E0D7E9800EAC069 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 894C18D11E0D7E9800EAC069 /* libbz2.tbd */; };
@@ -256,7 +259,6 @@
 		89D9EBEB1E0D63D1008B9419 /* tool_selector.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89D9EB821E0D63D1008B9419 /* tool_selector.cc */; };
 		89D9EBEC1E0D63D1008B9419 /* trafficlight_info.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89D9EB841E0D63D1008B9419 /* trafficlight_info.cc */; };
 		89D9EBED1E0D63D1008B9419 /* welt.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89D9EB861E0D63D1008B9419 /* welt.cc */; };
-		89D9EBFA1E0D641A008B9419 /* no_midi.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89D9EBF51E0D641A008B9419 /* no_midi.cc */; };
 		89D9EC1B1E0D6472008B9419 /* checksum.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89D9EC011E0D6472008B9419 /* checksum.cc */; };
 		89D9EC1C1E0D6472008B9419 /* memory_rw.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89D9EC031E0D6472008B9419 /* memory_rw.cc */; };
 		89D9EC1D1E0D6472008B9419 /* network.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89D9EC051E0D6472008B9419 /* network.cc */; };
@@ -326,7 +328,6 @@
 		89D9ECBF1E0D6489008B9419 /* dynamic_string.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89D9EC841E0D6489008B9419 /* dynamic_string.cc */; };
 		89D9ECC01E0D6489008B9419 /* export_objs.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89D9EC861E0D6489008B9419 /* export_objs.cc */; };
 		89D9ECC11E0D6489008B9419 /* script.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89D9EC881E0D6489008B9419 /* script.cc */; };
-		89D9ECCC1E0D64A0008B9419 /* no_sound.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89D9ECC51E0D64A0008B9419 /* no_sound.cc */; };
 		89D9ED081E0D64D7008B9419 /* sq_extensions.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89D9ECD21E0D64D7008B9419 /* sq_extensions.cc */; };
 		89D9ED091E0D64D7008B9419 /* sqstdaux.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89D9ECD91E0D64D7008B9419 /* sqstdaux.cc */; };
 		89D9ED0A1E0D64D7008B9419 /* sqstdblob.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89D9ECDA1E0D64D7008B9419 /* sqstdblob.cc */; };
@@ -399,6 +400,9 @@
 		89243FDF1E0DA55700443512 /* simsys_mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = simsys_mac.mm; path = ../simsys_mac.mm; sourceTree = "<group>"; };
 		89243FE11E0DAA8F00443512 /* Simutrans.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Simutrans.entitlements; path = Simutrans/Simutrans.entitlements; sourceTree = "<group>"; };
 		89243FE21E0DAE4800443512 /* pak128 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pak128; path = ../pak128; sourceTree = "<group>"; };
+		89243FEA1E0DB89800443512 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		89243FEF1E0DBC8B00443512 /* avmidiplayer_midi.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = avmidiplayer_midi.mm; sourceTree = "<group>"; };
+		89243FF11E0DBEFB00443512 /* avaudioplayer_sound.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = avaudioplayer_sound.mm; sourceTree = "<group>"; };
 		894C18CD1E0D7D9400EAC069 /* pak */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pak; path = ../pak; sourceTree = "<group>"; };
 		894C18CF1E0D7E9000EAC069 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		894C18D11E0D7E9800EAC069 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
@@ -918,7 +922,6 @@
 		89D9EB891E0D63D1008B9419 /* simtestdriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = simtestdriver.h; sourceTree = "<group>"; };
 		89D9EB8A1E0D63D1008B9419 /* sync_steppable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sync_steppable.h; sourceTree = "<group>"; };
 		89D9EBF41E0D641A008B9419 /* music.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = music.h; sourceTree = "<group>"; };
-		89D9EBF51E0D641A008B9419 /* no_midi.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = no_midi.cc; sourceTree = "<group>"; };
 		89D9EC011E0D6472008B9419 /* checksum.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = checksum.cc; sourceTree = "<group>"; };
 		89D9EC021E0D6472008B9419 /* checksum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = checksum.h; sourceTree = "<group>"; };
 		89D9EC031E0D6472008B9419 /* memory_rw.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = memory_rw.cc; sourceTree = "<group>"; };
@@ -1039,7 +1042,6 @@
 		89D9EC871E0D6489008B9419 /* export_objs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = export_objs.h; sourceTree = "<group>"; };
 		89D9EC881E0D6489008B9419 /* script.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = script.cc; sourceTree = "<group>"; };
 		89D9EC891E0D6489008B9419 /* script.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = script.h; sourceTree = "<group>"; };
-		89D9ECC51E0D64A0008B9419 /* no_sound.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = no_sound.cc; sourceTree = "<group>"; };
 		89D9ECD01E0D64BE008B9419 /* sound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sound.h; sourceTree = "<group>"; };
 		89D9ECD21E0D64D7008B9419 /* sq_extensions.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sq_extensions.cc; sourceTree = "<group>"; };
 		89D9ECD31E0D64D7008B9419 /* sq_extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sq_extensions.h; sourceTree = "<group>"; };
@@ -1157,6 +1159,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89243FEB1E0DB89800443512 /* AVFoundation.framework in Frameworks */,
 				894C18D61E0D861800EAC069 /* libpng16.a in Frameworks */,
 				894C18D41E0D860A00EAC069 /* libSDL2.a in Frameworks */,
 				894C18D21E0D7E9800EAC069 /* libbz2.tbd in Frameworks */,
@@ -1718,7 +1721,7 @@
 			isa = PBXGroup;
 			children = (
 				89D9EBF41E0D641A008B9419 /* music.h */,
-				89D9EBF51E0D641A008B9419 /* no_midi.cc */,
+				89243FEF1E0DBC8B00443512 /* avmidiplayer_midi.mm */,
 			);
 			name = music;
 			path = ../music;
@@ -1887,8 +1890,8 @@
 		89D9ECC21E0D64A0008B9419 /* sound */ = {
 			isa = PBXGroup;
 			children = (
-				89D9ECC51E0D64A0008B9419 /* no_sound.cc */,
 				89D9ECD01E0D64BE008B9419 /* sound.h */,
+				89243FF11E0DBEFB00443512 /* avaudioplayer_sound.mm */,
 			);
 			name = sound;
 			path = ../sound;
@@ -2165,6 +2168,7 @@
 		89D9ED681E0D668F008B9419 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				89243FEA1E0DB89800443512 /* AVFoundation.framework */,
 				894C18D51E0D861800EAC069 /* libpng16.a */,
 				894C18D31E0D860A00EAC069 /* libSDL2.a */,
 				894C18D11E0D7E9800EAC069 /* libbz2.tbd */,
@@ -2242,6 +2246,7 @@
 					89D9E8BF1E0D5FD7008B9419 = {
 						CreatedOnToolsVersion = 8.2;
 						DevelopmentTeam = D49GD3F6CN;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
@@ -2444,6 +2449,7 @@
 				89D9ED171E0D64D7008B9419 /* sqlexer.cc in Sources */,
 				89D9EBA31E0D63D1008B9419 /* gui_scrollbar.cc in Sources */,
 				89D9EA0C1E0D63A6008B9419 /* image_reader.cc in Sources */,
+				89243FF21E0DBEFB00443512 /* avaudioplayer_sound.mm in Sources */,
 				89D9E92B1E0D614D008B9419 /* clipboard_internal.cc in Sources */,
 				89D9EA231E0D63A6008B9419 /* building_writer.cc in Sources */,
 				89D9EAB31E0D63C3008B9419 /* settings.cc in Sources */,
@@ -2457,7 +2463,6 @@
 				89D9EA2A1E0D63A6008B9419 /* ground_writer.cc in Sources */,
 				89D9EAA91E0D63C3008B9419 /* koord3d.cc in Sources */,
 				89D9E9381E0D614D008B9419 /* simfab.cc in Sources */,
-				89D9ECCC1E0D64A0008B9419 /* no_sound.cc in Sources */,
 				89D9E9471E0D614D008B9419 /* simsound.cc in Sources */,
 				89D9ED161E0D64D7008B9419 /* sqfuncstate.cc in Sources */,
 				89D9EB911E0D63D1008B9419 /* citybuilding_edit.cc in Sources */,
@@ -2540,6 +2545,7 @@
 				89D9EC8F1E0D6489008B9419 /* groundobj.cc in Sources */,
 				89D9EBD11E0D63D1008B9419 /* map_frame.cc in Sources */,
 				89D9EBBB1E0D63D1008B9419 /* factorylist_stats_t.cc in Sources */,
+				89243FF01E0DBC8B00443512 /* avmidiplayer_midi.mm in Sources */,
 				89D9EBA11E0D63D1008B9419 /* gui_numberinput.cc in Sources */,
 				89D9EAAF1E0D63C3008B9419 /* ribi.cc in Sources */,
 				89243FD81E0D8B4100443512 /* sha1.cc in Sources */,
@@ -2569,7 +2575,6 @@
 				89D9EC991E0D6489008B9419 /* ai.cc in Sources */,
 				89D9EA041E0D63A6008B9419 /* bridge_reader.cc in Sources */,
 				89D9ECBF1E0D6489008B9419 /* dynamic_string.cc in Sources */,
-				89D9EBFA1E0D641A008B9419 /* no_midi.cc in Sources */,
 				89D9E9FE1E0D63A6008B9419 /* bild_besch.cc in Sources */,
 				89D9ED101E0D64D7008B9419 /* sqstdsystem.cc in Sources */,
 				89D9EA341E0D63A6008B9419 /* sim_writer.cc in Sources */,
@@ -2775,6 +2780,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.kebo.Simutrans;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -2812,6 +2820,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.kebo.Simutrans;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
