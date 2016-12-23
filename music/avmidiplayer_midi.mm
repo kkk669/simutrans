@@ -26,7 +26,7 @@ void dr_set_midi_volume(int const vol)
 int dr_load_midi(char const* const filename)
 {
 	NSString* const s = [NSString stringWithUTF8String: filename];
-	AVMIDIPlayer* const m = [[AVMIDIPlayer alloc] initWithContentsOfURL: [NSURL fileURLWithPath: s] soundBankURL: nil error: nil];
+	AVMIDIPlayer* const m = [[AVMIDIPlayer alloc] initWithContentsOfURL: [NSURL fileURLWithPath: s] soundBankURL: [[NSBundle mainBundle] URLForResource: @"Florestan_Basic_GM_GS" withExtension: @"sf2"] error: nil];
 	if (m) {
 		[movies addObject: m];
 	}

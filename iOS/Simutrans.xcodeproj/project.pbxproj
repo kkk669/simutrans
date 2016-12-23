@@ -335,6 +335,7 @@
 		5FAA4C0A198D27E900F2849F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FAA4C09198D27E900F2849F /* Images.xcassets */; };
 		89243FF41E0DC40B00443512 /* avmidiplayer_midi.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89243FF31E0DC40B00443512 /* avmidiplayer_midi.mm */; };
 		89243FF61E0DC41F00443512 /* avaudioplayer_sound.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89243FF51E0DC41F00443512 /* avaudioplayer_sound.mm */; };
+		892440061E0DDF4800443512 /* Florestan_Basic_GM_GS.sf2 in Resources */ = {isa = PBXBuildFile; fileRef = 892440051E0DDF4800443512 /* Florestan_Basic_GM_GS.sf2 */; };
 		89E304281DEDEE980023F137 /* api_command.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89E304231DEDEE980023F137 /* api_command.cc */; };
 		89E304291DEDEE980023F137 /* api_control.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89E304251DEDEE980023F137 /* api_control.cc */; };
 		89E3042A1DEDEE980023F137 /* squirrel_types_ai.awk in Resources */ = {isa = PBXBuildFile; fileRef = 89E304261DEDEE980023F137 /* squirrel_types_ai.awk */; };
@@ -1140,6 +1141,7 @@
 		5FAA4C09198D27E900F2849F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Simutrans/Images.xcassets; sourceTree = "<group>"; };
 		89243FF31E0DC40B00443512 /* avmidiplayer_midi.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = avmidiplayer_midi.mm; sourceTree = "<group>"; };
 		89243FF51E0DC41F00443512 /* avaudioplayer_sound.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = avaudioplayer_sound.mm; sourceTree = "<group>"; };
+		892440051E0DDF4800443512 /* Florestan_Basic_GM_GS.sf2 */ = {isa = PBXFileReference; lastKnownFileType = file; name = Florestan_Basic_GM_GS.sf2; path = ../music/Florestan_Basic_GM_GS.sf2; sourceTree = "<group>"; };
 		89E304231DEDEE980023F137 /* api_command.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = api_command.cc; sourceTree = "<group>"; };
 		89E304241DEDEE980023F137 /* api_command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = api_command.h; sourceTree = "<group>"; };
 		89E304251DEDEE980023F137 /* api_control.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = api_control.cc; sourceTree = "<group>"; };
@@ -1315,6 +1317,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				892440051E0DDF4800443512 /* Florestan_Basic_GM_GS.sf2 */,
 				5FAA4C09198D27E900F2849F /* Images.xcassets */,
 				5FAA4BE7198D190500F2849F /* simutrans */,
 				5FAA4C04198D197C00F2849F /* paks */,
@@ -2485,6 +2488,7 @@
 				5FAA4BF7198D192200F2849F /* config in Resources */,
 				5FAA4BF9198D192200F2849F /* font in Resources */,
 				5FAA461E198D0B1C00F2849F /* export.awk in Resources */,
+				892440061E0DDF4800443512 /* Florestan_Basic_GM_GS.sf2 in Resources */,
 				5FAA4621198D0B1C00F2849F /* filter_sq.sh in Resources */,
 				89E3042A1DEDEE980023F137 /* squirrel_types_ai.awk in Resources */,
 				29BAE40B1DEF17AD00FDE44D /* pak128 in Resources */,
