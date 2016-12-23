@@ -16,20 +16,7 @@
 		29BADF641DEEF65700FDE44D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29BADF631DEEF65700FDE44D /* AVFoundation.framework */; };
 		29BADF661DEEF68200FDE44D /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29BADF651DEEF68200FDE44D /* GameController.framework */; };
 		29BADF681DEEF6AE00FDE44D /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29BADF671DEEF6AE00FDE44D /* CoreMotion.framework */; };
-		29BAE4041DEF17AD00FDE44D /* pak.japan in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE3F61DEF17AD00FDE44D /* pak.japan */; };
-		29BAE4051DEF17AD00FDE44D /* pak.nippon in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE3F71DEF17AD00FDE44D /* pak.nippon */; };
-		29BAE4061DEF17AD00FDE44D /* pak32 in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE3F81DEF17AD00FDE44D /* pak32 */; };
-		29BAE4071DEF17AD00FDE44D /* pak48.Excentrique in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE3F91DEF17AD00FDE44D /* pak48.Excentrique */; };
-		29BAE4081DEF17AD00FDE44D /* pak64.german in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE3FA1DEF17AD00FDE44D /* pak64.german */; };
-		29BAE4091DEF17AD00FDE44D /* pak64.scifi in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE3FB1DEF17AD00FDE44D /* pak64.scifi */; };
-		29BAE40A1DEF17AD00FDE44D /* pak96.comic in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE3FC1DEF17AD00FDE44D /* pak96.comic */; };
 		29BAE40B1DEF17AD00FDE44D /* pak128 in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE3FD1DEF17AD00FDE44D /* pak128 */; };
-		29BAE40C1DEF17AD00FDE44D /* pak128.Britain in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE3FE1DEF17AD00FDE44D /* pak128.Britain */; };
-		29BAE40D1DEF17AD00FDE44D /* PAK128.german in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE3FF1DEF17AD00FDE44D /* PAK128.german */; };
-		29BAE40E1DEF17AD00FDE44D /* pak192.comic in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE4001DEF17AD00FDE44D /* pak192.comic */; };
-		29BAE40F1DEF17AD00FDE44D /* pakcontrast in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE4011DEF17AD00FDE44D /* pakcontrast */; };
-		29BAE4101DEF17AD00FDE44D /* pakHAJO in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE4021DEF17AD00FDE44D /* pakHAJO */; };
-		29BAE4111DEF17AD00FDE44D /* pakHD in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE4031DEF17AD00FDE44D /* pakHD */; };
 		29BAE4131DEF439700FDE44D /* pak in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE4121DEF439700FDE44D /* pak */; };
 		29BAE4151DEF50DE00FDE44D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29BAE4141DEF50DE00FDE44D /* Launch Screen.storyboard */; };
 		5FAA4287198D09C300F2849F /* brueckenbauer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 5FAA4279198D09C200F2849F /* brueckenbauer.cc */; };
@@ -193,7 +180,6 @@
 		5FAA45DF198D0B1C00F2849F /* themeselector.cc in Sources */ = {isa = PBXBuildFile; fileRef = 5FAA445E198D0B1B00F2849F /* themeselector.cc */; };
 		5FAA45E0198D0B1C00F2849F /* trafficlight_info.cc in Sources */ = {isa = PBXBuildFile; fileRef = 5FAA4460198D0B1B00F2849F /* trafficlight_info.cc */; };
 		5FAA45E1198D0B1C00F2849F /* welt.cc in Sources */ = {isa = PBXBuildFile; fileRef = 5FAA4462198D0B1B00F2849F /* welt.cc */; };
-		5FAA45E5198D0B1C00F2849F /* no_midi.cc in Sources */ = {isa = PBXBuildFile; fileRef = 5FAA446F198D0B1B00F2849F /* no_midi.cc */; };
 		5FAA45E8198D0B1C00F2849F /* checksum.cc in Sources */ = {isa = PBXBuildFile; fileRef = 5FAA4473198D0B1B00F2849F /* checksum.cc */; };
 		5FAA45E9198D0B1C00F2849F /* memory_rw.cc in Sources */ = {isa = PBXBuildFile; fileRef = 5FAA4475198D0B1B00F2849F /* memory_rw.cc */; };
 		5FAA45EA198D0B1C00F2849F /* network.cc in Sources */ = {isa = PBXBuildFile; fileRef = 5FAA4477198D0B1B00F2849F /* network.cc */; };
@@ -284,7 +270,6 @@
 		5FAA4640198D0B1C00F2849F /* simticker.cc in Sources */ = {isa = PBXBuildFile; fileRef = 5FAA451A198D0B1B00F2849F /* simticker.cc */; };
 		5FAA4642198D0B1C00F2849F /* simware.cc in Sources */ = {isa = PBXBuildFile; fileRef = 5FAA4521198D0B1B00F2849F /* simware.cc */; };
 		5FAA4644198D0B1C00F2849F /* simworld.cc in Sources */ = {isa = PBXBuildFile; fileRef = 5FAA4526198D0B1B00F2849F /* simworld.cc */; };
-		5FAA4647198D0B1C00F2849F /* no_sound.cc in Sources */ = {isa = PBXBuildFile; fileRef = 5FAA452B198D0B1B00F2849F /* no_sound.cc */; };
 		5FAA464B198D0B1C00F2849F /* platzsucher.cc in Sources */ = {isa = PBXBuildFile; fileRef = 5FAA4532198D0B1C00F2849F /* platzsucher.cc */; };
 		5FAA464C198D0B1C00F2849F /* unicode.cc in Sources */ = {isa = PBXBuildFile; fileRef = 5FAA4543198D0B1C00F2849F /* unicode.cc */; };
 		5FAA464D198D0B1C00F2849F /* cbuffer_t.cc in Sources */ = {isa = PBXBuildFile; fileRef = 5FAA4546198D0B1C00F2849F /* cbuffer_t.cc */; };
@@ -348,6 +333,8 @@
 		5FAA4C03198D192200F2849F /* themes in Resources */ = {isa = PBXBuildFile; fileRef = 5FAA4BF5198D192200F2849F /* themes */; };
 		5FAA4C08198D1B6000F2849F /* simsys_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5FAA4C07198D1B6000F2849F /* simsys_ios.mm */; };
 		5FAA4C0A198D27E900F2849F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FAA4C09198D27E900F2849F /* Images.xcassets */; };
+		89243FF41E0DC40B00443512 /* avmidiplayer_midi.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89243FF31E0DC40B00443512 /* avmidiplayer_midi.mm */; };
+		89243FF61E0DC41F00443512 /* avaudioplayer_sound.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89243FF51E0DC41F00443512 /* avaudioplayer_sound.mm */; };
 		89E304281DEDEE980023F137 /* api_command.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89E304231DEDEE980023F137 /* api_command.cc */; };
 		89E304291DEDEE980023F137 /* api_control.cc in Sources */ = {isa = PBXBuildFile; fileRef = 89E304251DEDEE980023F137 /* api_control.cc */; };
 		89E3042A1DEDEE980023F137 /* squirrel_types_ai.awk in Resources */ = {isa = PBXBuildFile; fileRef = 89E304261DEDEE980023F137 /* squirrel_types_ai.awk */; };
@@ -495,20 +482,7 @@
 		29BADF701DEF077400FDE44D /* pngconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pngconf.h; path = ../include_libpng/pngconf.h; sourceTree = "<group>"; };
 		29BADF711DEF077400FDE44D /* pnglibconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pnglibconf.h; path = ../include_libpng/pnglibconf.h; sourceTree = "<group>"; };
 		29BADF721DEF077F00FDE44D /* pngpriv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pngpriv.h; path = ../include_libpng/private/pngpriv.h; sourceTree = "<group>"; };
-		29BAE3F61DEF17AD00FDE44D /* pak.japan */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pak.japan; path = ../pak.japan; sourceTree = "<group>"; };
-		29BAE3F71DEF17AD00FDE44D /* pak.nippon */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pak.nippon; path = ../pak.nippon; sourceTree = "<group>"; };
-		29BAE3F81DEF17AD00FDE44D /* pak32 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pak32; path = ../pak32; sourceTree = "<group>"; };
-		29BAE3F91DEF17AD00FDE44D /* pak48.Excentrique */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pak48.Excentrique; path = ../pak48.Excentrique; sourceTree = "<group>"; };
-		29BAE3FA1DEF17AD00FDE44D /* pak64.german */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pak64.german; path = ../pak64.german; sourceTree = "<group>"; };
-		29BAE3FB1DEF17AD00FDE44D /* pak64.scifi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pak64.scifi; path = ../pak64.scifi; sourceTree = "<group>"; };
-		29BAE3FC1DEF17AD00FDE44D /* pak96.comic */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pak96.comic; path = ../pak96.comic; sourceTree = "<group>"; };
 		29BAE3FD1DEF17AD00FDE44D /* pak128 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pak128; path = ../pak128; sourceTree = "<group>"; };
-		29BAE3FE1DEF17AD00FDE44D /* pak128.Britain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pak128.Britain; path = ../pak128.Britain; sourceTree = "<group>"; };
-		29BAE3FF1DEF17AD00FDE44D /* PAK128.german */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PAK128.german; path = ../PAK128.german; sourceTree = "<group>"; };
-		29BAE4001DEF17AD00FDE44D /* pak192.comic */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pak192.comic; path = ../pak192.comic; sourceTree = "<group>"; };
-		29BAE4011DEF17AD00FDE44D /* pakcontrast */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pakcontrast; path = ../pakcontrast; sourceTree = "<group>"; };
-		29BAE4021DEF17AD00FDE44D /* pakHAJO */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pakHAJO; path = ../pakHAJO; sourceTree = "<group>"; };
-		29BAE4031DEF17AD00FDE44D /* pakHD */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pakHD; path = ../pakHD; sourceTree = "<group>"; };
 		29BAE4121DEF439700FDE44D /* pak */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pak; path = ../pak; sourceTree = "<group>"; };
 		29BAE4141DEF50DE00FDE44D /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		5FAA4279198D09C200F2849F /* brueckenbauer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = brueckenbauer.cc; path = ../bauer/brueckenbauer.cc; sourceTree = "<group>"; };
@@ -859,7 +833,6 @@
 		5FAA4469198D0B1B00F2849F /* linehandle_t.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = linehandle_t.h; path = ../linehandle_t.h; sourceTree = "<group>"; };
 		5FAA446A198D0B1B00F2849F /* macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = macros.h; path = ../macros.h; sourceTree = "<group>"; };
 		5FAA446E198D0B1B00F2849F /* music.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = music.h; sourceTree = "<group>"; };
-		5FAA446F198D0B1B00F2849F /* no_midi.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = no_midi.cc; sourceTree = "<group>"; };
 		5FAA4473198D0B1B00F2849F /* checksum.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = checksum.cc; sourceTree = "<group>"; };
 		5FAA4474198D0B1B00F2849F /* checksum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = checksum.h; sourceTree = "<group>"; };
 		5FAA4475198D0B1B00F2849F /* memory_rw.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = memory_rw.cc; sourceTree = "<group>"; };
@@ -1031,7 +1004,6 @@
 		5FAA4522198D0B1B00F2849F /* simware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = simware.h; path = ../simware.h; sourceTree = "<group>"; };
 		5FAA4526198D0B1B00F2849F /* simworld.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = simworld.cc; path = ../simworld.cc; sourceTree = "<group>"; };
 		5FAA4527198D0B1B00F2849F /* simworld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = simworld.h; path = ../simworld.h; sourceTree = "<group>"; };
-		5FAA452B198D0B1B00F2849F /* no_sound.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = no_sound.cc; sourceTree = "<group>"; };
 		5FAA452E198D0B1B00F2849F /* sound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sound.h; sourceTree = "<group>"; };
 		5FAA4531198D0B1C00F2849F /* bauplatz_sucher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bauplatz_sucher.h; sourceTree = "<group>"; };
 		5FAA4532198D0B1C00F2849F /* platzsucher.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = platzsucher.cc; sourceTree = "<group>"; };
@@ -1166,6 +1138,8 @@
 		5FAA4BF5198D192200F2849F /* themes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = themes; path = ../simutrans/themes; sourceTree = "<group>"; };
 		5FAA4C07198D1B6000F2849F /* simsys_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = simsys_ios.mm; path = ../simsys_ios.mm; sourceTree = "<group>"; };
 		5FAA4C09198D27E900F2849F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Simutrans/Images.xcassets; sourceTree = "<group>"; };
+		89243FF31E0DC40B00443512 /* avmidiplayer_midi.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = avmidiplayer_midi.mm; sourceTree = "<group>"; };
+		89243FF51E0DC41F00443512 /* avaudioplayer_sound.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = avaudioplayer_sound.mm; sourceTree = "<group>"; };
 		89E304231DEDEE980023F137 /* api_command.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = api_command.cc; sourceTree = "<group>"; };
 		89E304241DEDEE980023F137 /* api_command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = api_command.h; sourceTree = "<group>"; };
 		89E304251DEDEE980023F137 /* api_control.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = api_control.cc; sourceTree = "<group>"; };
@@ -1977,8 +1951,8 @@
 		5FAA446B198D0B1B00F2849F /* music */ = {
 			isa = PBXGroup;
 			children = (
+				89243FF31E0DC40B00443512 /* avmidiplayer_midi.mm */,
 				5FAA446E198D0B1B00F2849F /* music.h */,
-				5FAA446F198D0B1B00F2849F /* no_midi.cc */,
 			);
 			name = music;
 			path = ../music;
@@ -2147,7 +2121,7 @@
 		5FAA4528198D0B1B00F2849F /* sound */ = {
 			isa = PBXGroup;
 			children = (
-				5FAA452B198D0B1B00F2849F /* no_sound.cc */,
+				89243FF51E0DC41F00443512 /* avaudioplayer_sound.mm */,
 				5FAA452E198D0B1B00F2849F /* sound.h */,
 			);
 			name = sound;
@@ -2377,20 +2351,7 @@
 			isa = PBXGroup;
 			children = (
 				29BAE4121DEF439700FDE44D /* pak */,
-				29BAE3F61DEF17AD00FDE44D /* pak.japan */,
-				29BAE3F71DEF17AD00FDE44D /* pak.nippon */,
-				29BAE3F81DEF17AD00FDE44D /* pak32 */,
-				29BAE3F91DEF17AD00FDE44D /* pak48.Excentrique */,
-				29BAE3FA1DEF17AD00FDE44D /* pak64.german */,
-				29BAE3FB1DEF17AD00FDE44D /* pak64.scifi */,
-				29BAE3FC1DEF17AD00FDE44D /* pak96.comic */,
 				29BAE3FD1DEF17AD00FDE44D /* pak128 */,
-				29BAE3FE1DEF17AD00FDE44D /* pak128.Britain */,
-				29BAE3FF1DEF17AD00FDE44D /* PAK128.german */,
-				29BAE4001DEF17AD00FDE44D /* pak192.comic */,
-				29BAE4011DEF17AD00FDE44D /* pakcontrast */,
-				29BAE4021DEF17AD00FDE44D /* pakHAJO */,
-				29BAE4031DEF17AD00FDE44D /* pakHD */,
 			);
 			name = paks;
 			sourceTree = "<group>";
@@ -2515,43 +2476,30 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				29BAE4091DEF17AD00FDE44D /* pak64.scifi in Resources */,
 				5FAA4BF8198D192200F2849F /* copyright.txt in Resources */,
 				5FAA4C0A198D27E900F2849F /* Images.xcassets in Resources */,
 				5FAA4C00198D192200F2849F /* script in Resources */,
 				5FAA4BFA198D192200F2849F /* history.txt in Resources */,
-				29BAE4071DEF17AD00FDE44D /* pak48.Excentrique in Resources */,
 				5FAA4C02198D192200F2849F /* thanks.txt in Resources */,
 				5FAA461D198D0B1C00F2849F /* Doxyfile_SQAPI in Resources */,
-				29BAE4061DEF17AD00FDE44D /* pak32 in Resources */,
 				5FAA4BF7198D192200F2849F /* config in Resources */,
 				5FAA4BF9198D192200F2849F /* font in Resources */,
 				5FAA461E198D0B1C00F2849F /* export.awk in Resources */,
-				29BAE4041DEF17AD00FDE44D /* pak.japan in Resources */,
 				5FAA4621198D0B1C00F2849F /* filter_sq.sh in Resources */,
 				89E3042A1DEDEE980023F137 /* squirrel_types_ai.awk in Resources */,
 				29BAE40B1DEF17AD00FDE44D /* pak128 in Resources */,
 				5FAA4BFC198D192200F2849F /* license.txt in Resources */,
 				5FAA4BF6198D192200F2849F /* change_request.txt in Resources */,
-				29BAE4081DEF17AD00FDE44D /* pak64.german in Resources */,
 				5FAA4C03198D192200F2849F /* themes in Resources */,
 				29BAE4151DEF50DE00FDE44D /* Launch Screen.storyboard in Resources */,
-				29BAE40D1DEF17AD00FDE44D /* PAK128.german in Resources */,
 				5FAA4BFF198D192200F2849F /* readme.txt in Resources */,
-				29BAE40F1DEF17AD00FDE44D /* pakcontrast in Resources */,
 				5FAA4BFE198D192200F2849F /* problem_report.txt in Resources */,
-				29BAE4111DEF17AD00FDE44D /* pakHD in Resources */,
 				89E3042B1DEDEE980023F137 /* squirrel_types_scenario.awk in Resources */,
 				5FAA4C01198D192200F2849F /* text in Resources */,
 				29BAE4131DEF439700FDE44D /* pak in Resources */,
-				29BAE40C1DEF17AD00FDE44D /* pak128.Britain in Resources */,
 				5FAA4BFD198D192200F2849F /* music in Resources */,
 				5FAA4620198D0B1C00F2849F /* filter_cpp.sh in Resources */,
-				29BAE4051DEF17AD00FDE44D /* pak.nippon in Resources */,
-				29BAE40E1DEF17AD00FDE44D /* pak192.comic in Resources */,
-				29BAE4101DEF17AD00FDE44D /* pakHAJO in Resources */,
 				5FAA4BFB198D192200F2849F /* license_squirrel.txt in Resources */,
-				29BAE40A1DEF17AD00FDE44D /* pak96.comic in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2728,6 +2676,7 @@
 				5FAA42F8198D09F300F2849F /* imagelist_reader.cc in Sources */,
 				5FAA4592198D0B1C00F2849F /* gui_komponente.cc in Sources */,
 				5FAA45B4198D0B1C00F2849F /* gui_frame.cc in Sources */,
+				89243FF61E0DC41F00443512 /* avaudioplayer_sound.mm in Sources */,
 				5FAA4591198D0B1C00F2849F /* gui_image_list.cc in Sources */,
 				5FAA4616198D0B1C00F2849F /* api_scenario.cc in Sources */,
 				89E304A61DEDF1A60023F137 /* groundobj_writer.cc in Sources */,
@@ -2747,14 +2696,12 @@
 				5FAA4626198D0B1C00F2849F /* api_param.cc in Sources */,
 				5FAA4307198D09F300F2849F /* sound_besch.cc in Sources */,
 				5FAA461A198D0B1C00F2849F /* api_skeleton.cc in Sources */,
-				5FAA45E5198D0B1C00F2849F /* no_midi.cc in Sources */,
 				5FAA45EE198D0B1C00F2849F /* network_cmd_scenario.cc in Sources */,
 				5FAA4289198D09C300F2849F /* hausbauer.cc in Sources */,
 				89E304601DEDF13C0023F137 /* height_map_loader.cc in Sources */,
 				5FAA4608198D0B1C00F2849F /* finance.cc in Sources */,
 				5FAA45CB198D0B1C00F2849F /* money_frame.cc in Sources */,
 				5FAA45EA198D0B1C00F2849F /* network.cc in Sources */,
-				5FAA4647198D0B1C00F2849F /* no_sound.cc in Sources */,
 				5FAA4605198D0B1C00F2849F /* ai.cc in Sources */,
 				5FAA4625198D0B1C00F2849F /* api_function.cc in Sources */,
 				5FAA45E0198D0B1C00F2849F /* trafficlight_info.cc in Sources */,
@@ -2882,6 +2829,7 @@
 				5FAA45D4198D0B1C00F2849F /* scenario_info.cc in Sources */,
 				5FAA4634198D0B1C00F2849F /* simline.cc in Sources */,
 				89E304B81DEDF1A60023F137 /* xref_writer.cc in Sources */,
+				89243FF41E0DC40B00443512 /* avmidiplayer_midi.mm in Sources */,
 				5FAA4575198D0B1C00F2849F /* scenario.cc in Sources */,
 				5FAA4640198D0B1C00F2849F /* simticker.cc in Sources */,
 				5FAA45E1198D0B1C00F2849F /* welt.cc in Sources */,
